@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <link rel="stylesheet" href="styles.css">
+            <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+
+            <style>
+            * {
+              box-sizing: border-box;
+            }
+            body {
+              background-color: rgb(4, 4, 30);
+            }
+            /* Create three equal columns that floats next to each other */
+            .column {
+              float: left;
+              width: 50.00%;
+              padding: 10px;
+              /*height: 300px; Should be removed. Only for demonstration */
+            }
+            
+            /* Clear floats after the columns */
+            .row:after {
+              content: "";
+              display: table;
+              clear: both;
+            }
+            </style>
+        </head>
+    <header>
+        <script src="./mutualScript.js" async></script>
+        <script crossorigin="anonymous" src="https://d3js.org/d3.v6.min.js"></script>
+
+    </header>
+    <body style="color:black; background-repeat: no-repeat; background-size: cover; font-size: 2vw; background-position: center;">
+        <!--Navigation bar-->
+        <nav>
+          <div>
+              <a href="/">
+                  <div id="headtag"><img src="hoopgreen.webp" alt="Home"/></div>
+                  <div id="tagline"><img src="chucker.webp" alt="Home"/></div>
+              </a>
+          </div>
+          <div> 
+              <a href="/">HOME</a>
+              <a href="/deepStats" > | DEEP STATS | </a>      
+              <a href="/shotCharts" > SHOT CHARTS </a>
+            <!--<a href="/jackarithm" >JACKARITHM</a>-->
+          </div>
+      </nav>
+        <!--<script>
+        $(function(){
+          $("#nav-placeholder").load("nav.html");
+        });
+        </script>-->
+        <!--end of Navigation bar-->
+        <br>
+      <div>
+        <br>
+        <label for="teamsshots">Choose Team: </label>
+        <select name="teamsshots" id="teamsshots" style="font-size: 2vw;">
+        </select>
+        <br>
+        <label for="shots_player">Choose Player: </label>
+        <select name="shots_player" id="shots_player" style="font-size: 2vw;">
+        </select>
+        <br>
+        
+        <label for="shots_season">Choose season: </label>
+        <select name="shots_season" id="shots_season" style="font-size: 2vw;">
+
+        </select>
+        <br>
+
+        <!--<label for="shots_player">Enter player name: </label>
+        <input type="text" name="shots_player" id="shots_player" style="font-size: 2vw;">
+        <br>--->
+
+        <div id="f1" style="display:none">
+          <form name="form1">
+            <label for="shots_gameId">Select game: </label>
+            <select name="shots_gameId" id="shots_gameId" style="font-size: 2vw;">
+            </select>
+          
+          </form>
+        </div>
+      </div>
+        <div class="row">
+            <table id="shots-unavailable" style="font-size: 2vw;">
+              <tr class="tr-with-style">
+                  <td></td>
+              </tr>
+            </table>
+            <div class="column" style="height:vh90; width:49vw;">
+                <svg id="myPlot" style="width: 600px; height: 580px; display:block; margin:auto">
+                </svg>
+            </div>
+            <div class="column"style="height:100vh; width:48vw;">
+              <svg id="myPlot2" style="width: 600px; height:580px; display:block; margin:auto">
+              </svg>
+          </div>
+        </div>
+        <script src="./shotCharts.js" async></script>
+
+    </body>
+</html>

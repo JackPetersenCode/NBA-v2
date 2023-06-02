@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="styles.css">
+
+            <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+            <style>
+
+            body {
+              background-color: rgb(4, 4, 30);
+            }
+
+            p {
+              text-align: center;
+              font-family: "Garamond", serif;
+              text-shadow: 3px 3px 6px #000000;
+              resize: both;
+            }
+            * {
+              box-sizing: border-box;
+            }
+            
+            /* Create three equal columns that floats next to each other */
+            .column {
+              float: left;
+              width: 25.00%;
+              padding: 10px;
+              color: black;
+              font-family: "Garamond", serif;
+              font-weight: bold;
+              /*height: 300px; Should be removed. Only for demonstration */
+            }
+            
+            /* Clear floats after the columns */
+            .row:after {
+              content: "";
+              display: table;
+              clear: both;
+            }
+            </style>
+        </head>
+    <header>
+    </header>
+    <body style="color:black; background-repeat: no-repeat; background-size: cover; font-size: 2vw; background-position: center;">
+        <nav>
+            <div>
+                <a href="/">
+                    <div id="headtag"><img src="hoopgreen.webp" alt="Home"/></div>
+                    <div id="tagline"><img src="chucker.webp" alt="Home"/></div>
+                </a>
+            </div>
+            <div> 
+                <a href="/"> HOME </a>
+                <a href="/deepStats" > DEEP STATS </a>      
+                <a href="/shotCharts" > SHOT CHARTS </a>
+                <a href="/jackarithm" > JACK0-RITHM </a>
+        </div>
+        </nav>
+        <!--<script>
+            $(function(){
+              $("#nav-placeholder").load("nav.html");
+            });
+        </script>-->
+        <!--end of Navigation bar-->
+        <div class="frontInputFields">
+            <br>
+            <label for="homeTeamJackarithm">Choose Home Team: </label>
+            <select name="homeTeamJackarithm" id="homeTeamJackarithm" style="font-size: 2vw;">
+            </select>
+            <br>
+            <br>
+            <label for="visitorTeamJackarithm">Choose Visitor Team: </label>
+            <select name="visitorTeamJackarithm" id="visitorTeamJackarithm" style="font-size: 2vw;">
+            </select>
+            <br>
+            <br>
+            <label for="seasonGameResults">Choose season: </label>
+            <select name="seasonGameResults" id="seasonGameResults" style="font-size: 2vw;">
+                <option value="2015-2016">2015-2016</option>
+                <option value="2016-2017">2016-2017</option>
+                <option value="2017-2018">2017-2018</option>
+                <option value="2018-2019">2018-2019</option>
+                <option value="2019-2020">2019-2020</option>
+                <option value="2020-2021">2020-2021</option>
+                <option value="2021-2022">2021-2022</option>
+            </select>
+            <br>
+            <br>
+            <button class="button" id="compareP240ExpectedResultsToGameResultsButton" name="compareP240ExpectedResultsToGameResultsButton" style="font-size: 2vw;">Compare Results</button>
+            <br>
+            <br>
+            <button class="button" id="compareP240ResultsBySeasonButton" name="compareP240ResultsBySeasonButton" style="font-size: 2vw;">Compare Results Whole Season</button>
+            <br>
+            <br>
+            <button class="button" id="compareP240ResultsBySeasonTotalsButton" name="compareP240ResultsBySeasonTotalsButton" style="font-size: 2vw;">Compare All By Season</button>
+            <br>
+            <br>
+            <button class="button" id="loadExpectedBySeasonButton" name="loadExpectedBySeasonButton" style="font-size: 2vw;">Load Expected By Season</button>
+
+        </div>
+        <br>
+        <br>
+        <button class="button" id="writeOddsToDatabaseButton" name="writeOddsToDatabaseButton" style="font-size: 2vw;">Write odds to database</button>
+        <br>
+        <br>
+
+        <div class="row">
+            <div class="column">
+            <table class="nostyle" id="seasonHomeTeamRosterTable" style="font-size: 2vw; background-color: white;">
+                <tr style="background-color: white;">
+                    <td style="background-color: white;"></td>
+                </tr>
+            </table>
+            <br>
+            <br>
+            <table class="nostyle" id="seasonVisitorTeamRosterTable" style="font-size: 2vw; background-color: white;">
+                <tr style="background-color: white;">
+                    <td style="background-color: white;"></td>
+                </tr>
+            </table>
+            </div>
+            <div class="column">
+                <h1>Compare Results Table</h1>
+                <table class="nostyle" id="compareResultsTable" style="font-size: 2vw; background-color: white;">
+                    <tr style="background-color: white;">
+                        <td style="background-color: white;"></td>
+                    </tr>
+                </table>
+            </div>
+            <br>
+            <br>
+
+        <div class="row">
+            <div class="column">
+                <h1>Game Results Per Season Home Team</h1>
+                <table class="nostyle" id="gameResultsHomeTeamPerSeasonTable" style="font-size: 2vw;">
+                    <tr style="background-color: white;">
+                        <td style="background-color: white;"></td>
+                    </tr>
+                </table>
+                <br>
+                <br>
+                <br>
+                <h1>Game Results Per Season Visitor Team</h1>
+                <table class="nostyle" id="gameResultsVisitorTeamPerSeasonTable" style="font-size: 2vw;">
+                    <tr style="background-color: white;">
+                        <td style="background-color: white;"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="column" width="25%">
+                <h1>P240 Stat Table Home
+                </h1>
+                <table class="nostyle" id="p240ExpectedTableHome" style="font-size: 2vw;">
+                    <tr style="background-color: white;">
+                        <td style="background-color: white;"></td>
+                    </tr>
+                </table>
+                <br>
+                <br>
+            </div>
+            <div class="column" width="25%">
+                <h1>P240 Stat Table Visitor
+                </h1>
+                <table class="nostyle" id="p240ExpectedTableVisitor" style="font-size: 2vw;">
+                    <tr style="background-color: white;">
+                        <td style="background-color: white;"></td>
+                    </tr>
+                </table>
+                <br>
+                <br>
+            </div>
+            <div class="column" width="25%">
+                <h1>Teams Season P240 Stat Table
+                </h1>
+                <table class="nostyle" id="teamsp240expectedtable" style="font-size: 2vw;">
+                    <tr style="background-color: white;">
+                        <td style="background-color: white;"></td>
+                    </tr>
+                </table>
+                <br>
+                <br>
+            </div>
+        </div>
+
+        <h1>box score traditional home</h1>
+        <table class="nostyle" id="boxTraditionalSeasonAverageTableHome" style="font-size: 2vw;">
+            <tr>
+                <td></td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <br>
+        <h1>box score traditional per 82 home</h1>
+        <table class="nostyle" id="boxTraditionalSeasonAverageTable_82Home" style="font-size: 2vw;">
+            <tr style="background-color: white;">
+                <td style="background-color: white;"></td>
+            </tr>
+        </table>
+
+        <h1>box score traditional visitor</h1>
+        <table class="nostyle" id="boxTraditionalSeasonAverageTableVisitor" style="font-size: 2vw;">
+            <tr>
+                <td></td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <br>
+        <h1>box score traditional per 82 visitor</h1>
+        <table class="nostyle" id="boxTraditionalSeasonAverageTable_82Visitor" style="font-size: 2vw;">
+            <tr style="background-color: white;">
+                <td style="background-color: white;"></td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <br>
+        <h1>box score traditional</h1>
+        <table class="nostyle" id="boxTraditionalSeasonAverageTable" style="font-size: 2vw;">
+            <tr style="background-color: white;">
+                <td style="background-color: white;"></td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <br>
+        <h1>box score traditional per 82</h1>
+        <table class="nostyle" id="boxTraditionalSeasonAverageTable_82" style="font-size: 2vw;">
+            <tr style="background-color: white;">
+                <td style="background-color: white;"></td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <br>
+                    <!-------------------------------------------------------------------------------------------------->
+            
+                    <button hidden class="button" id="getBoxTraditionalButtonHome" name="getBoxTraditionalButtonHome" style="font-size: 2vw;">Get Box Traditional Stats Home</button>
+                    <button hidden class="button" id="getBoxTraditionalButtonVisitor" name="getBoxTraditionalButtonVisitor" style="font-size: 2vw;">Get Box Traditional Stats Visitor</button>
+                    <label hidden for="p240StatDropDown">Choose stat to get p240 average of every team: </label>
+                    <select hidden name="p240StatDropDown" id="p240StatDropDown" style="font-size: 2vw;">
+                    </select>
+                    <button hidden class="button" id="getP240ExpectedButton" name="getP240ExpectedButton" style="font-size: 2vw;">Get Expected PP240</button>
+                    <br>
+                    <button hidden class="button" id="getP240ExpectedHomeButton" name="getP240ExpectedHomeButton" style="font-size: 2vw;">Get Expected PP240 Home Team</button>
+                    <br>
+                    <button hidden class="button" id="getP240ExpectedVisitorButton" name="getP240ExpectedVisitorButton" style="font-size: 2vw;">Get Expected PP240 Visitor Team</button>
+        
+                    <br>
+                    <button hidden class="button" id="getHomeTeamGameResults" name="getHomeTeamGameResults" style="font-size: 2vw;">Get Home Team Game Results</button>
+                    <br>
+                    <button hidden class="button" id="getVisitorTeamGameResults" name="getVisitorTeamGameResults" style="font-size: 2vw;">Get Visitor Team Game Results</button>
+                    <br>
+                    <br>
+                    <button hidden class="button" id="compareExpectedResultsToGameResultsButton" name="compareExpectedResultsToGameResultsButton" style="font-size: 2vw;">Compare Results PG</button>
+                    <br>
+                    <br>
+                    <button hidden class="button" id="compareResultsBySeasonButton" name="compareResultsBySeasonButton" style="font-size: 2vw;">Compare Results Whole Season PG</button>
+                    <br>
+                    <br>
+                    
+                    <!-------------------------------------------------------------------------------------------------->
+        <script src="./mutualScript.js" async></script>
+        <script src="./jackarithm.js" async></script>
+        <script src="./jackorithm.js" async></script>
+        
+    </body>
+</html>

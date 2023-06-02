@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+    <link rel="stylesheet" href="styles.css">
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+        <style>
+        * {
+          box-sizing: border-box;
+        }
+        body {
+              background-color: rgb(4, 4, 30);
+            }
+
+            p {
+              text-align: center;
+              color: rgb(154, 255, 3);
+              font-family: "Garamond", serif;
+              text-shadow: 3px 3px 6px #000000;
+              resize: both;
+            }
+            * {
+              box-sizing: border-box;
+            }
+            
+            /* Create three equal columns that floats next to each other */
+            .column {
+              float: left;
+              width: 33.33%;
+              padding: 10px;
+              /*height: 300px; Should be removed. Only for demonstration */
+            }
+            
+            /* Clear floats after the columns */
+            .row:after {
+              content: "";
+              display: table;
+              clear: both;
+            }
+            </style>
+    </head>
+
+    <header>
+
+
+        
+    </header>
+<body style="background-color: rgb(4, 4, 30); background-repeat: no-repeat; background-size: cover; font-size: 2vw; background-position: center;">
+    <!--Navigation bar-->
+    <nav>
+        <div>
+            <a href="/">
+                <div id="headtag"><img src="hoopgreen.webp" alt="Home"/></div>
+                <div id="tagline"><img src="chucker.webp" alt="Home"/></div>
+            </a>
+        </div>
+        <div> 
+            <a href="/">HOME</a>
+            <a href="/deepStats" > | DEEP STATS | </a>      
+            <a href="/shotCharts" > | SHOT CHARTS | </a>
+            <a href="/jackarithm" >JACKARITHM</a>
+        </div>
+    </nav>
+    <!--<script>
+    $(function(){
+      $("#nav-placeholder").load("nav.html");
+    });
+    </script>-->
+    <!--end of Navigation bar-->
+    <div class="row">
+        <div class="column">
+            <div class="frontInputFields">
+                <br>
+                <br>
+                <label for="teams">Choose Team: </label>
+                <select name="teams" id="teams">
+                </select>
+                <br>
+                <br>
+                <label for="teamplayers">Choose Player: </label>
+                <select name="teamplayers" id="teamplayers">
+                </select>
+                <br>
+                <br>
+                <label for="season">Choose season: </label>
+                <select name="season" id="season">
+                </select>
+                <br>
+                <br>
+                <label for="player-splits">Player Splits: </label>
+                <select name="player-splits" id="player-splits">
+                    <option value="Full">Full Season</option>
+                    <option value="home">Home</option>
+                    <option value="visitor">Visitor</option>
+                </select>
+                <br>
+                <br>
+                <label for="fullName">OR => Enter player name: </label>
+                <input type="text" name="fullName" id="fullName" style="font-size: 1.5vw;">
+                <button class="button" id="submit-player-stats" name="submit-player-stats">Submit</button>
+                <br>
+            </div>
+        </div>
+        <div class="column">
+            <br>
+            <br>
+            <label for="rankedSeason">Choose season: </label>
+            <select name="rankedSeason" id="rankedSeason">
+                <option value="2021-2022">2021-2022</option>
+                <option value="2020-2021">2020-2021</option>
+                <option value="2019-2020">2019-2020</option>
+                <option value="2018-2019">2018-2019</option>
+                <option value="2017-2018">2017-2018</option>
+                <option value="2016-2017">2016-2017</option>
+                <option value="2015-2016">2015-2016</option>
+            </select>
+            <br>
+            <br>
+            <label for="statToGet">Choose statistic: </label>
+            <select name="statToGet" id="statToGet" style="font-size: 1.5vw;">
+                <option value="pts">ppg</option>
+                <option value="min">minutes</option>
+                <option value="fgm">fgm</option>
+                <option value="fga">fga</option>
+                <option value="fg_pct">fgp_pct</option>
+                <option value="ftm">ftm</option>
+                <option value="fta">fta</option>
+                <option value="ft_pct">ft_pct</option>
+                <option value="fg3m">fg3m</option>
+                <option value="fg3a">fg3a</option>
+                <option value="fg3_pct">fg3_pct</option>
+                <option value="oreb">oreb</option>
+                <option value="dreb">dreb</option>
+                <option value="reb">reb</option>
+                <option value="ast">ast</option>
+                <option value="pf">pFouls</option>
+                <option value="stl">steals</option>
+                <option value="turnovers">turnovers</option>
+                <option value="blk">blocks</option>
+                <option value="plus_minus">plusMinus</option>
+            </select>
+            <br>
+            <br>
+            <table class="frontRankedStats" id="statRanks" style="font-size: 2vw;">
+                <thead id="frontRankedStatsHeader"></thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="column">
+            <br>
+            <br>
+            <label for="scheduleSeason">Choose season: </label>
+            <select name="scheduleSeason" id="scheduleSeason">
+                <option value="2021-2022">2021-2022</option>
+                <option value="2020-2021">2020-2021</option>
+                <option value="2019-2020">2019-2020</option>
+                <option value="2018-2019">2018-2019</option>
+                <option value="2017-2018">2017-2018</option>
+                <option value="2016-2017">2016-2017</option>
+                <option value="2015-2016">2015-2016</option>
+            </select>
+            <br>
+            <br>
+            <table class="scheduleStats" id="scheduleTable" style="font-size: 2vw;">
+                <thead id="scheduleTableHeader"></thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+        <br>
+        <br>
+        <label hidden for="deepStatToGet">Choose deep stat: </label>
+        <select hidden name="deepStatToGet" id="deepStatToGet" style="font-size: 2vw;">
+            <option value="MVP Points">MVP Points</option>
+            <option value="Hustle Factor">Hustle Factor</option>
+            <option value="Carmelo Factor">The Carmelo Factor</option>
+        </select>
+        <input hidden type="submit" name="SUBMIT" id="submit-deep-stat" style="font-size: 2vw;">
+        <br>
+        <button hidden class="button" id="clearButton" name="clearButton" style="font-size: 2vw;">Clear</button>
+        <br>
+        <!--<h1><span style="font-size: 2vw;">QUERY RESULTS:</span></h1>-->
+        <table class="center" id="player-info" style="font-size: 2vw;">
+            <tr class="tr-with-style">
+                <td style="text-align:center"></td>
+                <td style="text-align:center"></td>
+                <td style="text-align:center"></td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <table class="center" id="splitTable" style="font-size: 2vw;">
+            <tr class="tr-with-style">
+                <td style="text-align:center"></td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <table class="center" id="seasonAveragesRegularSeasonsTable" style="font-size: 2vw;">
+            <tr class="tr-with-style">
+                <td style="text-align:center"></td>
+            </tr>
+        </table>
+        
+        <input hidden type="submit" name="SUBMIT" id="submit-stat" style="font-size: 2vw;">
+        <br>
+        <label hidden for="deepStatToGet">Choose deep stat: </label>
+        <select hidden name="deepStatToGet" id="deepStatToGet" style="font-size: 2vw;">
+            <option value="Hustle Factor">Hustle Factor</option>
+            <option value="Carmelo Factor">The Carmelo Factor</option>
+        </select>
+        <input hidden type="submit" name="SUBMIT" id="submit-deep-stat" style="font-size: 2vw;">
+        <br>
+        <button hidden class="button" id="clearButton" name="clearButton" style="font-size: 2vw;">Clear</button>
+        <br>
+        <button class="button" id="loadButton" name="loadButton" style="font-size: 2vw;">Load Players into Local</button>
+        <button class="button" id="loadGamesButton" name="loadGamesButton" style="font-size: 2vw;">Load Games into Local</button>
+        <button class="button" id="loadGameInfoButton" name="loadGameInfoButton" style="font-size: 2vw;">Load Game Info into Local (season year)</button>
+        <button class="button" id="loadUpShotChartButton" name="loadUpShotChartButton" style="font-size: 2vw;">Load Shot Charts</button>
+        <button class="button" id="loadUpNBAPlayersButton" name="loadUpNBAPlayersButton" style="font-size: 2vw;">Load NBA Players</button>
+        <button class="button" id="loadUpShotChartsBySeasonButton" name="loadUpShotChartsBySeasonButton" style="font-size: 2vw;">Load Shot Charts By Season</button>
+        <button class="button" id="loadUpLeagueGamesBySeasonButton" name="loadUpLeagueGamesBySeasonButton" style="font-size: 2vw;">Load League Games By Season</button>
+        <button class="button" id="loadUpBoxScoresLocalButton" name="loadUpBoxScoresLocalButton" style="font-size: 2vw;">Load Box Scores By Season</button>
+        <button class="button" id="loadUpLeagueHustleStatsButton" name="loadUpLeagueHustleStatsButton" style="font-size: 2vw;">Load Up League Hustle Stats By Season</button>
+        <button class="button" id="loadPlayersButton" name="loadPlayersButton" style="font-size: 2vw;">Load Players into Local (cloud)</button>
+        <button class="button" id="loadUpGamesCloud" name="loadUpGamesCloud" style="font-size: 2vw;">Load Games (cloud)</button>
+        <button class="button" id="loadUpGameInfoCloud" name="loadUpGameInfoCloud" style="font-size: 2vw;">Load Game Info (cloud)</button>
+        <button class="button" id="loadUpBoxScoresTraditionalLocal" name="loadUpBoxScoresTraditionalLocal" style="font-size: 2vw;">Load Box Scores Traditional</button>
+        <button class="button" id="loadUpPlayerCareerStats" name="loadUpPlayerCareerStats" style="font-size: 2vw;">Load Player Career Stats</button>
+        <button class="button" id="loadUpBoxScoreFourFactors" name="loadUpBoxScoreFourFactors" style="font-size: 2vw;">Load Player Box Score Four Factors</button>
+        <button class="button" id="loadUpBoxScoreFourFactorsTeams" name="loadUpBoxScoreFourFactorsTeams" style="font-size: 2vw;">Load Player Box Score Four Factors Teams</button>
+        <button class="button" id="loadUpBoxScoreMisc" name="loadUpBoxScoreMisc" style="font-size: 2vw;">Load Player Box Score Misc</button>
+        <button class="button" id="loadUpBoxScoreMiscTeams" name="loadUpBoxScoreMiscTeams" style="font-size: 2vw;">Load Teams Box Score Misc</button>
+        <button class="button" id="loadUpBoxScorePlayerTracker" name="loadUpBoxScorePlayerTracker" style="font-size: 2vw;">Load Box Score Player Tracker</button>
+        <button class="button" id="loadUpBoxScorePlayerTrackerTeams" name="loadUpBoxScorePlayerTrackerTeams" style="font-size: 2vw;">Load Box Score Player Tracker Teams</button>
+        <button class="button" id="loadUpLeagueDashLineups" name="loadUpLeagueDashLineups" style="font-size: 2vw;">Load League Dash Lineups</button>
+        <button class="button" id="loadUpLeagueDashOppPtShot" name="loadUpLeagueDashOppPtShot" style="font-size: 2vw;">Load League Dash Opp Pt Shot</button>
+        <button class="button" id="loadUpLeagueDashPlayerClutch" name="loadUpLeagueDashPlayerClutch" style="font-size: 2vw;">Load League Dash Player Clutch</button>
+        <button class="button" id="loadUpLeagueDashPlayerPtShot" name="loadUpLeagueDashPlayerPtShot" style="font-size: 2vw;">Load League Dash Player Pt Shot</button>
+        <button class="button" id="loadUpLeagueDashPlayerShotLocation" name="loadUpLeagueDashPlayerShotLocation" style="font-size: 2vw;">Load League Dash Player Shot Location</button>
+        <button class="button" id="loadUpBoxScoreScoring" name="loadUpBoxScoreScoring" style="font-size: 2vw;">Load Box Score Scoring</button>
+        <button class="button" id="loadUpBoxScoreScoringTeams" name="loadUpBoxScoreScoringTeams" style="font-size: 2vw;">Load Box Score Scoring Teams</button>
+        <button class="button" id="loadUpBoxScoreSummary" name="loadUpBoxScoreSummary" style="font-size: 2vw;">Load Box Score Summary</button>
+        <button class="button" id="LOADGAMES" name="LOADGAMES" style="font-size: 2vw;">Load GAMES Into Local</button>
+        <button class="button" id="loadUpNewOdds" name="loadUpNewOdds" style="font-size: 2vw;">Load New Odds</button>
+
+
+        <div>
+            <a href="/">Home</a>
+            <a href="/deepStats">Deep Stats</a>
+            <a href="/shotCharts">Shot Charts</a>
+            <a href="/jackarithm" >JACKARITHM</a>
+
+        </div>
+
+    </div>
+    <div>
+    <p style="font-size:vw;">Deep Stats:</p>
+    <p>MVP Points - 
+        Custom weights of most major stat categories added together to create an accumulative statistic.
+        <br>
+        <br> 
+        Hustle Factor - 
+        Custom weights of offensive rebounds, steals, blocks, and plus-minus to create an accumulative statistic.
+        <br>
+        <br>
+        Carmelo Factor - 
+        Subtracts the players' field goal percentage from 100, add the Hustle Factor, divide by 10. Most players will be in the negatives, the lower you go, the more
+        Carmelo-y of a player you are.
+    </p>
+    <p class="p1">JACK'S 2022 MVP POINTS RESULTS:
+        <br>
+        Jayson Taytum - 7.27
+        <br>
+        2. Giannis Antetokounmpo - 7.05
+        <br>
+        3. Nikola Jokic - 6.93
+        <br>
+        4. Joel Embiid - 6.84
+        <br> 
+    </p>
+    <p class="p1">
+        ACTUAL NBA KIA MVP VOTING:
+        <br>
+        Players received 10 points for each first-place vote, seven points for each second-place vote, 
+        five points for each third-place vote, three points for each fourth-place vote and one point for each fifth-place vote.
+        <br>
+        1. Nikola Jokic - 875 points
+        <br>
+        2. Joel Embiid - 706 points
+        <br>
+        3. Giannis Antetokounmpo - 595 points
+        <br>
+    <p1>
+    </div>
+</div>
+<script src="./mutualScript.js" async></script>
+<script src="./frontPageScript.js" async></script>
+<script src="./startup.js" async></script>
+
+</body>
+</html>

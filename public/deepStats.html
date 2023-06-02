@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <link rel="stylesheet" href="styles.css">
+            <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+            <style>
+
+            body {
+              background-color: rgb(4, 4, 30);
+            }
+
+            p {
+              text-align: center;
+              color: rgb(154, 255, 3);
+              font-family: "Garamond", serif;
+              text-shadow: 3px 3px 6px #000000;
+              resize: both;
+            }
+            * {
+              box-sizing: border-box;
+            }
+            
+            /* Create three equal columns that floats next to each other */
+            .column {
+              float: left;
+              width: 33.33%;
+              padding: 10px;
+              /*height: 300px; Should be removed. Only for demonstration */
+            }
+            
+            /* Clear floats after the columns */
+            .row:after {
+              content: "";
+              display: table;
+              clear: both;
+            }
+            </style>
+        </head>
+    <header>
+        <script src="./mutualScript.js" async></script>
+        <script src="./deepStatsScript.js" async></script>
+    </header>
+<body style="color:black; background-repeat: no-repeat; background-size: cover; font-size: 2vw; background-position: center;">
+    <!--Navigation bar-->
+    <nav>
+        <div>
+            <a href="/">
+                <div id="headtag"><img src="hoopgreen.webp" alt="Home"/></div>
+                <div id="tagline"><img src="chucker.webp" alt="Home"/></div>
+            </a>
+        </div>
+        <div> 
+            <a href="/">HOME</a>
+            <a href="/deepStats" > | DEEP STATS | </a>      
+            <a href="/shotCharts" > SHOT CHARTS </a>
+            <!--<a href="/jackarithm" >JACKARITHM</a>-->
+        </div>
+    </nav>
+    <!--<script>
+    $(function(){
+      $("#nav-placeholder").load("nav.html");
+    });
+    </script>-->
+    <!--end of Navigation bar-->
+    <div class="row">
+        <div class="column">
+        <br>
+        <p>JACK'S 2022 MVP POINTS RESULTS:
+            <br>
+            1. Jayson Tatum: 7.27
+            <br>
+            2. Giannis Antetokounmpo: 7.05
+            <br>
+            3. Nikola Jokic: 6.93
+            <br>
+            4. Joel Embiid: 6.84
+            <br> 
+        </p>
+        <p>
+        <label for="seasonMvpPts">Choose season: </label>
+        <select name="seasonMvpPts" id="seasonMvpPts" style="font-size: 2vw;">
+            <option value="2015-2016">2015-2016</option>
+            <option value="2016-2017">2016-2017</option>
+            <option value="2017-2018">2017-2018</option>
+            <option value="2018-2019">2018-2019</option>
+            <option value="2019-2020">2019-2020</option>
+            <option value="2020-2021">2020-2021</option>
+            <option value="2021-2022">2021-2022</option>
+        </select>
+        <button hidden class="button" id="load-season-mvp-local" name="load-season-mvp-local" style="font-size: 2vw;">Load Up MVP Points Locally</button>
+        <button class="button" id="submit-mvpSeason" name="submit-mvpSeason" style="font-size: 2vw;">Submit Season</button>
+        <br>
+        <div style="overflow-y:auto;">
+            <table class="center" id="seasonMvpPointsTable" style="font-size: 2vw;">
+            <tr class="tr-with-style">
+                <td style="text-align:center"></td>
+            </tr>
+            </table>
+        </div>
+        </p>
+        </div>
+        <div class="column" width="33%">
+            <br>
+            <p>JACK'S 2022 CARMELO FACTOR RESULTS:
+                <br>
+                1. Robert Wllliams III: -0.95
+                <br>
+                2. Rudy Gobert: -1.06
+                <br>
+                3. Nikola Jokic: -1.20
+                <br> 
+            </p>
+            <p>
+                <label for="seasonCarmeloPts">Choose season: </label>
+                <select name="seasonCarmeloPts" id="seasonCarmeloPts" style="font-size: 2vw;">
+                    <option value="2015-2016">2015-2016</option>
+                    <option value="2016-2017">2016-2017</option>
+                    <option value="2017-2018">2017-2018</option>
+                    <option value="2018-2019">2018-2019</option>
+                    <option value="2019-2020">2019-2020</option>
+                    <option value="2020-2021">2020-2021</option>
+                    <option value="2021-2022">2021-2022</option>
+                </select>
+                <button hidden class="button" id="load-season-carmelo-local" name="load-season-carmelo-local" style="font-size: 2vw;">Load Up Carmelo Points Locally</button>
+                <button class="button" id="submit-carmeloSeason" name="submit-carmeloSeason" style="font-size: 2vw;">Submit Season</button>
+                <br>
+                <div style="overflow-y:auto;">
+                    <table class="center" id="seasonCarmeloPointsTable" style="font-size: 2vw;">
+                    <tr class="tr-with-style">
+                        <td style="text-align:center"></td>
+                    </tr>
+                    </table>
+                </div>
+            </p>
+        </div>
+        <div class="column" width="33%">
+            <br>
+            <p>JACK'S 2022 HUSTLE FACTOR RESULTS:
+                <br>
+                1. Robert Williams III: 2.90
+                <br>
+                2. Rudy Gobert: 2.74
+                <br>
+                3. Nikola Jokic: 2.55
+                <br> 
+            </p>
+            <p>
+                <label for="seasonHustlePts">Choose season: </label>
+                <select name="seasonHustlePts" id="seasonHustlePts" style="font-size: 2vw;">
+                    <option value="2015-2016">2015-2016</option>
+                    <option value="2016-2017">2016-2017</option>
+                    <option value="2017-2018">2017-2018</option>
+                    <option value="2018-2019">2018-2019</option>
+                    <option value="2019-2020">2019-2020</option>
+                    <option value="2020-2021">2020-2021</option>
+                    <option value="2021-2022">2021-2022</option>
+                </select>
+                <button hidden class="button" id="load-season-hustle-local" name="load-season-hustle-local" style="font-size: 2vw;">Load Up Hustle Points Locally</button>
+                <button class="button" id="submit-hustleSeason" name="submit-hustleSeason" style="font-size: 2vw;">Submit Season</button>
+                <br>
+                <div style="overflow-y:auto;"></div>
+                    <table class="center" id="seasonHustlePointsTable" style="font-size: 2vw;">
+                    <tr class="tr-with-style">
+                        <td style="text-align:center"></td>
+                    </tr>
+                    </table>
+                </div>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
