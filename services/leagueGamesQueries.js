@@ -6,7 +6,7 @@ const createCsvWriter = require('csv-writer');
 const getGamesBySeason = async(request, response, next) => {
     let season = request.params;
     try {
-        let games = await require(`../juicystats/leaguegamesTEST${season['season']}.json`);
+        let games = await require(`../juicystats/leaguegamesTESTTEST${season['season']}.json`);
         response.status(200).send(games);  
     } catch (error) {
         return next(error);
@@ -107,12 +107,25 @@ const getGamesLocal = async(request, response, next) => {
     }
 }
 
+//const createGamesBySeason = (request, response, next) => {
+//    let season = request.params;
+//    //console.log(season);
+//    const body = request.body;
+//    db.query(`INSERT INTO "leagueGames${season['season']}" (season_id, team_id, team_abbreviation, team_name, game_id, game_date, matchup, wl, min, fgm, fga, fg_pct, fg3m, fg3a, fg3_pct, ftm, fta, ft_pct, oreb, dreb, reb, ast, stl, blk, tov, pf, pts, plus_minus, video_available) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29)`, 
+//    [body[0], body[1].toString(), body[2], body[3], body[4], body[5], body[6], body[7], body[8].toString(), body[9].toString(), body[10].toString(), body[11].toString(), body[12].toString(), body[13].toString(), body[14].toString(), body[15].toString(), body[16].toString(), body[17].toString(), body[18].toString(), body[19].toString(), body[20].toString(), body[21].toString(), body[22].toString(), body[23].toString(), body[24].toString(), body[25].toString(), body[26].toString(), body[27].toString(), body[28].toString()], (error, results) => {
+//        if (error) {
+//            return next(error);
+//        }
+//        response.status(201).send(body);
+//    })
+//}
+
 const createGamesBySeason = (request, response, next) => {
     let season = request.params;
     //console.log(season);
     const body = request.body;
-    db.query(`INSERT INTO "leagueGames${season['season']}" (season_id, team_id, team_abbreviation, team_name, game_id, game_date, matchup, wl, min, fgm, fga, fg_pct, fg3m, fg3a, fg3_pct, ftm, fta, ft_pct, oreb, dreb, reb, ast, stl, blk, tov, pf, pts, plus_minus, video_available) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29)`, 
-    [body[0], body[1].toString(), body[2], body[3], body[4], body[5], body[6], body[7], body[8].toString(), body[9].toString(), body[10].toString(), body[11].toString(), body[12].toString(), body[13].toString(), body[14].toString(), body[15].toString(), body[16].toString(), body[17].toString(), body[18].toString(), body[19].toString(), body[20].toString(), body[21].toString(), body[22].toString(), body[23].toString(), body[24].toString(), body[25].toString(), body[26].toString(), body[27].toString(), body[28].toString()], (error, results) => {
+    db.query(`INSERT INTO "test234" (something) VALUES ($1)`, 
+    [body[0]], (error, results) => {
         if (error) {
             return next(error);
         }

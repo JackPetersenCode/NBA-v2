@@ -1,7 +1,12 @@
 import time
 import csv
+import schedule
+import time
+import os
 from email import header
 import json
+import asyncio
+from dotenv import load_dotenv
 from types import SimpleNamespace
 from unittest import result
 from urllib import response
@@ -49,6 +54,9 @@ from nba_api.stats.endpoints._base import Endpoint
 from nba_api.stats.library.http import NBAStatsHTTP
 from nba_api.stats.library.parameters import PerMode36, LeagueIDNullable
 import requests
+#from postFunctions import post_league_games_by_season
+# Load environment variables from .env file
+load_dotenv()
 
 
 player_dict = players.get_players()
@@ -237,7 +245,7 @@ def leaguegames():
 
 	content = json.loads(response.get_json())
 	jsonContent = json.dumps(content)
-	with open("./juicystats/leaguegamesTEST2022-2023.json", "w") as outfile:
+	with open("./juicystats/leaguegamesTESTTEST2022-2023.json", "w") as outfile:
 	    outfile.write(jsonContent)
 
 def leaguehustlestats():
@@ -846,6 +854,101 @@ def boxScoreMiscFunction(gameid):
     except ValueError:
         print("VALUE ERROR?!?!?!!?!!??!?!??!??!?!!?")
 
+
+
+async def my_function():
+    # Your function's logic here
+    # Access the environment variable
+    node_env = os.environ.get("NODE_ENV")
+    print(node_env)
+    base_url = "/" if node_env == "production" else "http://localhost:3001/"
+    print("Function executed!")
+    leaguegames()
+    login_env = os.environ.get("LOGIN")
+    print(login_env)
+    headers = {
+        "Content-Type": "application/json"
+    }
+    session = requests.Session()
+
+    async def get_json_response_startup(url):
+        print(url)
+        try:
+            response = session.get(url=url)
+            if response.ok:
+                json_response = response.json()
+                return json_response
+        except Exception as err:
+            print(err)
+
+    async def post_league_games_by_season(obj, season, base_url):
+        print(season)
+        url = base_url + f"api/leagueGames/{season}"
+        try:
+            headers = {
+                'Content-Type': 'application/json'
+            }
+            response = session.post(url, headers=headers, json=obj)
+            if response.ok:
+                json_response = response.json()
+                print(json_response)
+                return json_response
+        except Exception as error:
+            print(error)
+
+    async def load_up_league_games_by_season(base_url):
+        years = ['2022-2023']
+        for year in years:
+            TABLE_LENGTH_URL = base_url + f"api/tablelength/leagueGames{year}"
+            table_length_response = await get_json_response_startup(TABLE_LENGTH_URL)
+            table_length = table_length_response[0]['count']
+            print(table_length)
+            LEAGUE_GAMES_URL = base_url + f'api/leagueGames/{year}'
+            games_array = await get_json_response_startup(LEAGUE_GAMES_URL)
+            for result_set in games_array['resultSets']:
+                for row in result_set['rowSet']:
+                    print(row)
+                    # ACTIVATE CODE IF YOU NEED TO LOAD SHOTS INTO YOUR DATABASE
+                    await post_league_games_by_season(row, year, base_url)
+        print('FINISHED!!!!!!!!!!!!!!!!!!!!!!1')
+
+    if login_env:
+        try:
+            my_json_obj = json.loads(login_env)
+            post_data = json.dumps(my_json_obj)
+            LOGIN_URL = base_url + 'api/users/login'
+            print(LOGIN_URL)
+            login_response = session.post(url=LOGIN_URL, data=post_data, headers=headers)
+            print(login_response.status_code)
+            print(login_response.text)
+
+            await load_up_league_games_by_season(base_url)
+ 
+
+        except json.JSONDecodeError:
+            print("Error decoding JSON")
+
+    return 'end of function'
+    #URL = base_url + 'api/leagueGames/2022-2023'
+    #response = requests.get(url = URL)
+    #data = response.json()
+    #print(data)
+
+    ##URL2 = base_url + 'api/leagueGames/2022-2023'
+    ##response2 = requests.post(url = URL2, data = "hooligans")
+
+
+##def run_daily_function():
+##    schedule.every().day.at("13:31").do(my_function)  # Replace "10:00" with your desired time
+##    
+##    while True:
+##        schedule.run_pending()
+##        time.sleep(1)
+##
+##if __name__ == "__main__":
+##    run_daily_function()
+
+
 ##shotchartdetailfunction()
 ##allassists()
 ##assiststracker()
@@ -866,5 +969,11 @@ def boxScoreMiscFunction(gameid):
 ##getPlayerIds()
 ##readBoxScoreSummary()
 ##writeNBAplayers()
-getOdds()
+##getOdds()
 ##readLeagueMisc()
+async def main():
+    result = await my_function()
+    print(result)
+
+# Run the asynchronous program
+asyncio.run(main())

@@ -312,6 +312,9 @@ router.post('/login', passport.authenticate('local', { failureRedirect: '/login'
     function(req, res) {
       res.send('ya man')
       console.log(req.session.passport)
+      console.log('whistles')
+      console.log(req.session)
+      console.log(req.body)
 });
 
 router.get('/:email', users.getUserByEmail);

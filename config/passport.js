@@ -6,8 +6,6 @@ const db = require('../pgPool');
 function initialize(passport) {
 
     const authenticateUser = async(email, password, done) => {
-        console.log(email)
-        console.log(password)
         const user = db.query(`SELECT * FROM users WHERE email = $1`, [email], (error, results) => {
             if (error) {
                 return next(error);
@@ -19,8 +17,6 @@ function initialize(passport) {
                         throw err;
                     }
                     if(isMatch) {
-                        console.log('yo yo yo guy')
-                        console.log(user);
                         let authUser = { id: results.rows[0].id, name: results.rows[0].name };
                         return done(null, authUser);
                     } else {
@@ -43,15 +39,11 @@ function initialize(passport) {
     );
 
     passport.serializeUser((user, done) => {
-        console.log(user);
-        console.log(user.id);
-        
         done(null, user.id);
     });
 
     passport.deserializeUser(async(id, done) => {
-        console.log('THIS ONE')
-        console.log(id)
+      
         const user = db.query(`SELECT * FROM users WHERE id = $1`, [id], (error, results) => {
             if (error) {
                 return next(error);
