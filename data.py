@@ -31,7 +31,7 @@ from nba_api.stats.library.parameters import LeagueID, PerModeSimple, Season, Se
 from nba_api.stats.library.parameters import SeasonAll
 import json
 from nba_api.stats.static import players
-import psycopg2
+#import psycopg2
 from nba_api.stats.endpoints._base import Endpoint
 from nba_api.stats.library.http import NBAStatsHTTP
 from nba_api.stats.library.parameters import AheadBehind, ClutchTime, LastNGames, MeasureTypeDetailedDefense, Month, PaceAdjust, PerModeDetailed, Period, PlusMinus, PointDiff, Rank, Season, SeasonTypeAllStar, ConferenceNullable, DivisionSimpleNullable, GameScopeSimpleNullable, GameSegmentNullable, LeagueIDNullable, LocationNullable, OutcomeNullable, PlayerExperienceNullable, PlayerPositionAbbreviationNullable, SeasonSegmentNullable, ShotClockRangeNullable, StarterBenchNullable, DivisionNullable
@@ -407,31 +407,31 @@ def leaguedashoppptshotfunction():
 	with open("./juicystats/leaguedashoppptshot2022-2023.json", "w") as outfile:
 	    outfile.write(jsonContent)
 
-def write():    
-    #establishing the connection
-    conn = psycopg2.connect(
-       database="NBAstatistics", user='petejackerson', password='redsox45', host='localhost', port= '5432'
-    )
-
-    #Setting auto commit false
-    conn.autocommit = True
-
-    #Creating a cursor object using the cursor() method
-    cursor = conn.cursor()
-
-    #Retrieving data
-    cursor.execute('''SELECT * from "hustleFactor"''')
-
-    response = cursor.fetchall()
-   
-    content = json.dumps(response)
-    jsonContent = json.loads(content)
-    jsonResult = json.dumps(jsonContent)
-
-    with open("./juicystats/hustleFactor.json", "w") as outfile:
-        outfile.write(jsonResult)
-    conn.close()
-
+#def write():    
+#    #establishing the connection
+#    conn = psycopg2.connect(
+#       database="NBAstatistics", user='petejackerson', password='redsox45', host='localhost', port= '5432'
+#    )
+#
+#    #Setting auto commit false
+#    conn.autocommit = True
+#
+#    #Creating a cursor object using the cursor() method
+#    cursor = conn.cursor()
+#
+#    #Retrieving data
+#    cursor.execute('''SELECT * from "hustleFactor"''')
+#
+#    response = cursor.fetchall()
+#   
+#    content = json.dumps(response)
+#    jsonContent = json.loads(content)
+#    jsonResult = json.dumps(jsonContent)
+#
+#    with open("./juicystats/hustleFactor.json", "w") as outfile:
+#        outfile.write(jsonResult)
+#    conn.close()
+#
 def leaguedashplayerclutchfunction():
 	response = leaguedashplayerclutch.LeagueDashPlayerClutch(
         ahead_behind=AheadBehind.default,
