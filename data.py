@@ -54,6 +54,7 @@ from nba_api.stats.endpoints._base import Endpoint
 from nba_api.stats.library.http import NBAStatsHTTP
 from nba_api.stats.library.parameters import PerMode36, LeagueIDNullable
 import requests
+import aiocron
 #from postFunctions import post_league_games_by_season
 # Load environment variables from .env file
 load_dotenv()
@@ -927,7 +928,8 @@ async def my_function():
 
         except json.JSONDecodeError:
             print("Error decoding JSON")
-
+    
+    await asyncio.sleep(1)
     return 'end of function'
     #URL = base_url + 'api/leagueGames/2022-2023'
     #response = requests.get(url = URL)
@@ -938,15 +940,10 @@ async def my_function():
     ##response2 = requests.post(url = URL2, data = "hooligans")
 
 
-##def run_daily_function():
-##    schedule.every().day.at("13:31").do(my_function)  # Replace "10:00" with your desired time
-##    
-##    while True:
-##        schedule.run_pending()
-##        time.sleep(1)
-##
-##if __name__ == "__main__":
-##    run_daily_function()
+aiocron.crontab("30 17 * * *", func=my_function)  # Run at 13:31 every day
+
+# Run the event loop
+asyncio.get_event_loop().run_forever()
 
 
 ##shotchartdetailfunction()
@@ -971,9 +968,3 @@ async def my_function():
 ##writeNBAplayers()
 ##getOdds()
 ##readLeagueMisc()
-async def main():
-    result = await my_function()
-    print(result)
-
-# Run the asynchronous program
-asyncio.run(main())
