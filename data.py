@@ -940,7 +940,7 @@ async def my_function():
     ##response2 = requests.post(url = URL2, data = "hooligans")
 
 
-aiocron.crontab("36 17 * * *", func=my_function)  # Run at 13:31 every day
+aiocron.crontab("38 17 * * *", func=my_function)  # Run at 13:31 every day
 
 # Run the event loop
 asyncio.get_event_loop().run_forever()
