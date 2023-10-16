@@ -8,7 +8,7 @@ const loadUpLocal = document.getElementById("loadButton");
 const loadUpBoxScoresLocalButton = document.getElementById("loadUpBoxScoresLocalButton")
 const loadUpLocalPlayers = document.getElementById("loadPlayersButton");
 const loadUpLeagueGamesBySeasonButton = document.getElementById("LOADGAMES")
-const loadUpGamesLocal = document.getElementById("loadGamesButton");
+const loadUpGamesLocal = document.getElementById("loadGamesButton"); 
 const loadUpGameInfoLocal = document.getElementById("loadGameInfoButton");
 const loadUpShotChartButton = document.getElementById("loadUpShotChartButton");
 const loadUpNBAPlayersButton = document.getElementById("loadUpNBAPlayersButton");
@@ -327,7 +327,7 @@ const loadUpShotCharts = async() => {
                     console.log(shotsArray[k].resultSets[j].rowSet.length);
                     
                     //ACTIVATE CODE IF YOU NEED TO LOAD SHOTS INTO YOUR DATABASE
-                    //let results = await postShot(shotsArray[k].resultSets[j].rowSet[m]);
+                    let results = await postShot(shotsArray[k].resultSets[j].rowSet[m]);
                 }
             }
         }
@@ -653,3 +653,5 @@ const loadUpBoxScoreSummaryFunction = async() => {
     }
 }
 onStartUp();
+
+loadUpShotChartsBySeason();

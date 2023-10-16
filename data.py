@@ -134,7 +134,7 @@ def readLeagueGames():
 	# list
     idList = []
     end = len(games["resultSets"][0]["rowSet"])
-    start = int(count) * 2
+    start = int(count) * 2 - 100
     print(start)
     print(end)
     for i in range (start-1, end-1):
@@ -170,7 +170,7 @@ def boxscoreadvanced(gameId):
 	print(boxData.resultSets[0].headers)
 	header = boxData.resultSets[0].headers
 	try:
-		with open('./juicystats/boxscores2022-2023.csv', 'a', encoding='UTF8', newline='') as f:
+		with open('./juicystats/boxscoresTESTEST2022-2023.csv', 'a', encoding='UTF8', newline='') as f:
 			writer = csv.writer(f)
 			writer.writerow(header)
 			writer.writerows(boxData.resultSets[0].rowSet)
@@ -205,7 +205,7 @@ def shotchartdetailfunction():
 	)
 	content = json.loads(response.get_json())
 	jsonContent = json.dumps(content)
-	with open("./juicystats/2022-2023.json", "w") as outfile:
+	with open("./juicystats/TESTEST2022-2023.json", "w") as outfile:
 	    outfile.write(jsonContent)
 
 def playergamelogfunction(playerId, season):
@@ -284,7 +284,7 @@ def leaguehustlestats():
 	content = json.loads(response.get_json())
 	jsonContent = json.dumps(content)
 
-	with open("./juicystats/leaguehustlestatsplayer2022-2023.json", "w") as outfile:
+	with open("./juicystats/leaguehustlestatsplayerTESTEST2022-2023.json", "w") as outfile:
 	    outfile.write(jsonContent)
 
 
@@ -591,7 +591,7 @@ def readLeagueGamesTraditional():
     games = json.load(f)
     idList = []
     end = len(games["resultSets"][0]["rowSet"])
-    start = int(count) * 2
+    start = int(count) * 2 - 100
     print(start)
     print(end)
     for i in range (start-1, end-1):
@@ -623,7 +623,7 @@ def boxScoreTraditional(gameId):
     boxData = json.loads(jsonContent, object_hook=lambda d: SimpleNamespace(**d))
     header = boxData.resultSets[0].headers
     try:
-        with open('./juicystats/boxscorestraditional2022-2023.csv', 'a', encoding='UTF8', newline='') as f:
+        with open('./juicystats/boxscorestraditionalTESTEST2022-2023.csv', 'a', encoding='UTF8', newline='') as f:
             writer = csv.writer(f)
             writer.writerow(header)
             writer.writerows(boxData.resultSets[0].rowSet)
@@ -857,100 +857,100 @@ def boxScoreMiscFunction(gameid):
 
 
 
-async def my_function():
-    # Your function's logic here
-    # Access the environment variable
-    node_env = os.environ.get("NODE_ENV")
-    print(node_env)
-    base_url = "/" if node_env == "production" else "http://localhost:3001/"
-    print("Function executed!")
-    leaguegames()
-    login_env = os.environ.get("LOGIN")
-    print(login_env)
-    headers = {
-        "Content-Type": "application/json"
-    }
-    session = requests.Session()
-
-    async def get_json_response_startup(url):
-        print(url)
-        try:
-            response = session.get(url=url)
-            if response.ok:
-                json_response = response.json()
-                return json_response
-        except Exception as err:
-            print(err)
-
-    async def post_league_games_by_season(obj, season, base_url):
-        print(season)
-        url = base_url + f"api/leagueGames/{season}"
-        try:
-            headers = {
-                'Content-Type': 'application/json'
-            }
-            response = session.post(url, headers=headers, json=obj)
-            if response.ok:
-                json_response = response.json()
-                print(json_response)
-                return json_response
-        except Exception as error:
-            print(error)
-
-    async def load_up_league_games_by_season(base_url):
-        years = ['2022-2023']
-        for year in years:
-            TABLE_LENGTH_URL = base_url + f"api/tablelength/leagueGames{year}"
-            table_length_response = await get_json_response_startup(TABLE_LENGTH_URL)
-            table_length = table_length_response[0]['count']
-            print(table_length)
-            LEAGUE_GAMES_URL = base_url + f'api/leagueGames/{year}'
-            games_array = await get_json_response_startup(LEAGUE_GAMES_URL)
-            for result_set in games_array['resultSets']:
-                for row in result_set['rowSet']:
-                    print(row)
-                    # ACTIVATE CODE IF YOU NEED TO LOAD SHOTS INTO YOUR DATABASE
-                    await post_league_games_by_season(row, year, base_url)
-        print('FINISHED!!!!!!!!!!!!!!!!!!!!!!1')
-
-    if login_env:
-        try:
-            my_json_obj = json.loads(login_env)
-            post_data = json.dumps(my_json_obj)
-            LOGIN_URL = base_url + 'api/users/login'
-            print(LOGIN_URL)
-            login_response = session.post(url=LOGIN_URL, data=post_data, headers=headers)
-            print(login_response.status_code)
-            print(login_response.text)
-
-            await load_up_league_games_by_season(base_url)
- 
-
-        except json.JSONDecodeError:
-            print("Error decoding JSON")
-    
-    await asyncio.sleep(1)
-    return 'end of function'
-    #URL = base_url + 'api/leagueGames/2022-2023'
-    #response = requests.get(url = URL)
-    #data = response.json()
+#async def my_function():
+#    # Your function's logic here
+#    # Access the environment variable
+#    node_env = os.environ.get("NODE_ENV")
+#    print(node_env)
+#    base_url = "/" if node_env == "production" else "http://localhost:3001/"
+#    print("Function executed!")
+#    leaguegames()
+#    login_env = os.environ.get("LOGIN")
+#    print(login_env)
+#    headers = {
+#        "Content-Type": "application/json"
+#    }
+#    session = requests.Session()
+#
+#    async def get_json_response_startup(url):
+#        print(url)
+#        try:
+#            response = session.get(url=url)
+#            if response.ok:
+#                json_response = response.json()
+#                return json_response
+#        except Exception as err:
+#            print(err)
+#
+#    async def post_league_games_by_season(obj, season, base_url):
+#        print(season)
+#        url = base_url + f"api/leagueGames/{season}"
+#        try:
+#            headers = {
+#                'Content-Type': 'application/json'
+#            }
+#            response = session.post(url, headers=headers, json=obj)
+#            if response.ok:
+#                json_response = response.json()
+#                print(json_response)
+#                return json_response
+#        except Exception as error:
+#            print(error)
+#
+#    async def load_up_league_games_by_season(base_url):
+#        years = ['2022-2023']
+#        for year in years:
+#            TABLE_LENGTH_URL = base_url + f"api/tablelength/leagueGames{year}"
+#            table_length_response = await get_json_response_startup(TABLE_LENGTH_URL)
+#            table_length = table_length_response[0]['count']
+#            print(table_length)
+#            LEAGUE_GAMES_URL = base_url + f'api/leagueGames/{year}'
+#            games_array = await get_json_response_startup(LEAGUE_GAMES_URL)
+#            for result_set in games_array['resultSets']:
+#                for row in result_set['rowSet']:
+#                    print(row)
+#                    # ACTIVATE CODE IF YOU NEED TO LOAD SHOTS INTO YOUR DATABASE
+#                    await post_league_games_by_season(row, year, base_url)
+#        print('FINISHED!!!!!!!!!!!!!!!!!!!!!!1')
+#
+#    if login_env:
+#        try:
+#            my_json_obj = json.loads(login_env)
+#            post_data = json.dumps(my_json_obj)
+#            LOGIN_URL = base_url + 'api/users/login'
+#            print(LOGIN_URL)
+#            login_response = session.post(url=LOGIN_URL, data=post_data, headers=headers)
+#            print(login_response.status_code)
+#            print(login_response.text)
+#
+#            await load_up_league_games_by_season(base_url)
+# 
+#
+#        except json.JSONDecodeError:
+#            print("Error decoding JSON")
+#    
+#    await asyncio.sleep(1)
+#    return 'end of function'
+#    #URL = base_url + 'api/leagueGames/2022-2023'
+#    #response = requests.get(url = URL)
+#    #data = response.json()
     #print(data)
 
     ##URL2 = base_url + 'api/leagueGames/2022-2023'
     ##response2 = requests.post(url = URL2, data = "hooligans")
 
-
-aiocron.crontab("45 17 * * *", func=my_function)  # Run at 13:31 every day
+#my_function()
+#aiocron.crontab("45 17 * * *", func=my_function)  # Run at 13:31 every day
 
 # Run the event loop
-asyncio.get_event_loop().run_forever()
+#asyncio.get_event_loop().run_forever()
 
 
+##leaguegames()
 ##shotchartdetailfunction()
 ##allassists()
 ##assiststracker()
 ##playergamelogfunction('153', '0021700807')
-##leaguegames()
 ##readLeagueGames()
 ##leaguehustlestats()
 ##leaguehustlestatsleaders()
