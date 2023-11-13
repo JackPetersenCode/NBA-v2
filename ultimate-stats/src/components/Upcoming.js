@@ -11,13 +11,13 @@ const Upcoming = ({homeExpectedResults,
                     setVisitorExpectedResults }) => {
 
     const [upcomingGames, setUpcomingGames] = useState([]);
-    const [selectedSeason, setSelectedSeason] = useState('2022-2023')
+    const [selectedSeason, setSelectedSeason] = useState('2023-2024')
 
     useEffect(() => {
         const getUpcoming = async() => {
             const results = await hoop.get(`/api/gambling/upcominggames/${selectedSeason}`)
             setUpcomingGames(results.data);
-            setSelectedSeason('2022-2023')
+            setSelectedSeason('2023-2024')
         }
         if (selectedSeason) {
             getUpcoming();

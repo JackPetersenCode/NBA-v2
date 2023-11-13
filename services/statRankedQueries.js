@@ -115,6 +115,7 @@ const getSeasonsPlayed = (request, response, next) => {
 
 }
 
+
 const getRankedBoxScores = (request, response, next) => {
 
     let { season } = request.params;
@@ -191,9 +192,11 @@ const getRankedBoxScoresMisc = (request, response, next) => {
     })
 }
 
+//HAVING COUNT(game_id) > 57
 const getPtsLeaders = (request, response, next) => {
 
-    let { season } = request.params;
+    let {season} = request.params;
+
     db.query(`SELECT "boxscorestraditional${season}".player_id, "boxscorestraditional${season}".player_name, "boxscorestraditional${season}".team_abbreviation,
                 AVG(CAST(pts AS FLOAT)) AS PTS, 
                 COUNT(id)
@@ -203,22 +206,25 @@ const getPtsLeaders = (request, response, next) => {
                 AND CAST(min AS FLOAT) > 0
                 AND player_id != 'PLAYER_ID'
                 GROUP BY player_id, player_name, team_id, team_abbreviation
-                HAVING COUNT(game_id) > 57
+                HAVING COUNT(game_id) > 5
                 ORDER BY AVG(CAST(pts AS FLOAT)) DESC LIMIT 5`, (error, results) => {
 
     if (error) {
         throw error;
     }
-    if (results.rows.length === 0 || results.rows[0].count === '0') {
-        return next(new Error( 'Stats Do Not Exist' ));
-    }
+    console.log(results.rows)
+    //if (results.rows.length === 0 || results.rows[0].count === '0') {
+    //    return next(new Error( 'Stats Do Not Exist' ));
+    //}
     response.status(200).json(results.rows)
   })
 }
 
+//HAVING COUNT(game_id) > 57
 const getRebLeaders = (request, response, next) => {
 
     let { season } = request.params;
+    console.log(season.length)
     db.query(`SELECT "boxscorestraditional${season}".player_id, "boxscorestraditional${season}".player_name, "boxscorestraditional${season}".team_abbreviation,
                 AVG(CAST(reb AS FLOAT)) AS REB, 
                 COUNT(id)
@@ -228,19 +234,21 @@ const getRebLeaders = (request, response, next) => {
                 AND CAST(min AS FLOAT) > 0
                 AND player_id != 'PLAYER_ID'
                 GROUP BY player_id, player_name, team_id, team_abbreviation
-                HAVING COUNT(game_id) > 57
+                HAVING COUNT(game_id) > 5
                 ORDER BY AVG(CAST(reb AS FLOAT)) DESC LIMIT 5`, (error, results) => {
 
     if (error) {
         throw error;
     }
-    if (results.rows.length === 0 || results.rows[0].count === '0') {
-        return next(new Error( 'Stats Do Not Exist' ));
-    }
+    //if (results.rows.length === 0 || results.rows[0].count === '0') {
+    //    return next(new Error( 'Stats Do Not Exist' ));
+    //}
+    console.log(results.rows)
     response.status(200).json(results.rows)
   })
 }
 
+//HAVING COUNT(game_id) > 57
 const getAstLeaders = (request, response, next) => {
 
     let { season } = request.params;
@@ -253,7 +261,7 @@ const getAstLeaders = (request, response, next) => {
                 AND CAST(min AS FLOAT) > 0
                 AND player_id != 'PLAYER_ID'
                 GROUP BY player_id, player_name, team_id, team_abbreviation
-                HAVING COUNT(game_id) > 57
+                HAVING COUNT(game_id) > 5
                 ORDER BY AVG(CAST(ast AS FLOAT)) DESC LIMIT 5`, (error, results) => {
 
     if (error) {
@@ -266,6 +274,7 @@ const getAstLeaders = (request, response, next) => {
   })
 }
 
+//HAVING COUNT(game_id) > 57
 const getStlLeaders = (request, response, next) => {
 
     let { season } = request.params;
@@ -278,7 +287,7 @@ const getStlLeaders = (request, response, next) => {
                 AND CAST(min AS FLOAT) > 0
                 AND player_id != 'PLAYER_ID'
                 GROUP BY player_id, player_name, team_id, team_abbreviation
-                HAVING COUNT(game_id) > 57
+                HAVING COUNT(game_id) > 5
                 ORDER BY AVG(CAST(stl AS FLOAT)) DESC LIMIT 5`, (error, results) => {
 
     if (error) {
@@ -291,6 +300,7 @@ const getStlLeaders = (request, response, next) => {
   })
 }
 
+//HAVING COUNT(game_id) > 57
 const getBlkLeaders = (request, response, next) => {
 
     let { season } = request.params;
@@ -303,7 +313,7 @@ const getBlkLeaders = (request, response, next) => {
                 AND CAST(min AS FLOAT) > 0
                 AND player_id != 'PLAYER_ID'
                 GROUP BY player_id, player_name, team_id, team_abbreviation
-                HAVING COUNT(game_id) > 57
+                HAVING COUNT(game_id) > 5
                 ORDER BY AVG(CAST(blk AS FLOAT)) DESC LIMIT 5`, (error, results) => {
 
     if (error) {
@@ -316,6 +326,7 @@ const getBlkLeaders = (request, response, next) => {
   })
 }
 
+//HAVING SUM(CAST(fgm AS FLOAT)) > 300
 const getFgPctLeaders = (request, response, next) => {
 
     let { season } = request.params;
@@ -328,7 +339,7 @@ const getFgPctLeaders = (request, response, next) => {
                 AND CAST(min AS FLOAT) > 0
                 AND player_id != 'PLAYER_ID'
                 GROUP BY player_id, player_name, team_id, team_abbreviation
-                HAVING SUM(CAST(fgm AS FLOAT)) > 300
+                HAVING sum(cast(fgm as float)) > 30 
                 ORDER BY sum(cast(fgm as float)) / NULLIF(sum(cast(fga as float)), 0) DESC LIMIT 5`, (error, results) => {
 
     if (error) {
@@ -341,6 +352,7 @@ const getFgPctLeaders = (request, response, next) => {
   })
 }
 
+//HAVING COUNT(game_id) > 57
 const getPlusMinusLeaders = (request, response, next) => {
 
     let { season } = request.params;
@@ -353,7 +365,7 @@ const getPlusMinusLeaders = (request, response, next) => {
                 AND CAST(min AS FLOAT) > 0
                 AND player_id != 'PLAYER_ID'
                 GROUP BY player_id, player_name, team_id, team_abbreviation
-                HAVING COUNT(game_id) > 57
+                HAVING COUNT(game_id) > 5
                 ORDER BY SUM(CAST(plus_minus AS FLOAT)) DESC LIMIT 5`, (error, results) => {
 
     if (error) {
@@ -366,6 +378,7 @@ const getPlusMinusLeaders = (request, response, next) => {
   })
 }
 
+//HAVING SUM(CAST(fg3m AS FLOAT)) > 81
 const getFg3mLeaders = (request, response, next) => {
 
     let { season } = request.params;
@@ -378,7 +391,7 @@ const getFg3mLeaders = (request, response, next) => {
                 AND CAST(min AS FLOAT) > 0
                 AND player_id != 'PLAYER_ID'
                 GROUP BY player_id, player_name, team_id, team_abbreviation
-                HAVING SUM(CAST(fg3m AS FLOAT)) > 81
+                HAVING SUM(CAST(fg3m AS FLOAT)) > 20
                 ORDER BY SUM(CAST(fg3m AS FLOAT)) DESC LIMIT 5`, (error, results) => {
 
     if (error) {
@@ -391,6 +404,7 @@ const getFg3mLeaders = (request, response, next) => {
   })
 }
 
+//HAVING SUM(CAST(fg3m AS FLOAT)) > 81
 const getFg3PctLeaders = (request, response, next) => {
 
     let { season } = request.params;
@@ -403,7 +417,7 @@ const getFg3PctLeaders = (request, response, next) => {
                 AND CAST(min AS FLOAT) > 0
                 AND player_id != 'PLAYER_ID'
                 GROUP BY player_id, player_name, team_id, team_abbreviation
-                HAVING SUM(CAST(fg3m AS FLOAT)) > 81
+                HAVING SUM(CAST(fg3m AS FLOAT)) > 20
                 ORDER BY sum(cast(fg3m as float)) / NULLIF(sum(cast(fg3a as float)), 0) DESC LIMIT 5`, (error, results) => {
 
     if (error) {

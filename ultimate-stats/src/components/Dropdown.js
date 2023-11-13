@@ -61,7 +61,8 @@ const Dropdown = (props) => {
                     {season: '2019-2020'},
                     {season: '2020-2021'},
                     {season: '2021-2022'},
-                    {season: '2022-2023'}
+                    {season: '2022-2023'},
+                    {season: '2023-2024'}
                 ])
             }
         }

@@ -103,7 +103,7 @@ const getOdds = async(season, oddsTeam, fullTeam, oddsDate, fullDate, H_or_V) =>
 
     let moneyline = await getJsonResponseJackorithm(`/api/gambling/moneyline/home/${season}/${oddsTeam}/${oddsDate}`)
     if (moneyline.length < 1) {
-        if (season === '2022-2023') {
+        if (season === '2023-2024') {
             moneyline = await getJsonResponseJackorithm(`/api/gambling/newOdds/${season}/${fullTeam}/${fullDate}/${H_or_V}`)
             if (moneyline.length > 0) {
                 if (H_or_V === 'home') {
@@ -319,7 +319,7 @@ const getGames = async(season) => {
 }
 
 loadUpExpectedBySeasonButton.onclick = async() => {
-    await loadExpectedBySeason('2021-2022');
+    await loadExpectedBySeason('2023-2024');
 }
 
 const loadExpectedBySeason = async(season) => {

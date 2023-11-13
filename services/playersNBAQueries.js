@@ -5,7 +5,7 @@ const createCsvWriter = require('csv-writer');
 
 const getPlayersNBA = async(request, response, next) => {
     try {
-        let players = await require('../juicystats/playersNBA.json');
+        let players = await require('../juicystats/playersNBA2024.json');
         response.status(200).send(players);
     } catch (error) {
         return next(error);

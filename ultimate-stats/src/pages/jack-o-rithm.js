@@ -10,7 +10,7 @@ const Jackarithm = () => {
     
     const [teamsData, setTeamsData] = useState([]);
     const [seasonsData, setSeasonsData] = useState([]);
-    const [selectedSeason, setSelectedSeason] = useState('2022-2023');
+    const [selectedSeason, setSelectedSeason] = useState('2023-2024');
     const [selectedTeam, setSelectedTeam] = useState('');
     const [H_or_V, setH_or_V] = useState('');
 /*

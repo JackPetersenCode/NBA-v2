@@ -28,7 +28,7 @@ const Fantasy = () => {
     
     let navigate = useNavigate();
 
-    const [selectedSeason, setSelectedSeason] = useState('2022-2023');
+    const [selectedSeason, setSelectedSeason] = useState('2023-2024');
     const [seasonsData, setSeasonsData] = useState([]);
     const [tableChoice, setTableChoice] = useState(<Table selectedSeason={selectedSeason}/>);
     const [tables, setTables] = useState([]);

@@ -32,8 +32,17 @@ const createBoxScoreMisc = (request, response, next) => {
     const body = request.body;
     const season = request.params;
     console.log(season);
-    db.query(`INSERT INTO "boxscoremisc${season.season}" (game_id, team_id, team_abbreviation, team_city, player_id, player_name, nickname, start_position, comment, min, pts_off_tov, pts_2nd_chance, pts_fb, pts_paint, opp_pts_off_tov, opp_pts_2nd_chance, opp_pts_fb, opp_pts_paint, blk, blka, pf, pfd) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22)`, 
-    [body.GAME_ID, body.TEAM_ID, body.TEAM_ABBREVIATION, body.TEAM_CITY, body.PLAYER_ID, body.PLAYER_NAME, body.NICKNAME, body.START_POSITION, body.COMMENT, body.MIN, body.PTS_OFF_TOV, body.PTS_2ND_CHANCE, body.PTS_FB, body.PTS_PAINT, body.OPP_PTS_OFF_TOV, body.OPP_PTS_2ND_CHANCE, body.OPP_PTS_FB, body.OPP_PTS_PAINT, body.BLK, body.BLKA, body.PF, body.PFD], (error, results) => {
+    let minutes = body.MIN.substring(0, 5)
+    let splitMins = minutes.split(':');
+    let finalMins;
+    if (splitMins[1]) {
+        finalMins = splitMins[0] + '.' + splitMins[1];
+    } else {
+        finalMins = minutes;
+    }
+
+    db.query(`INSERT INTO "boxscoremisc${season.season}" (game_id, team_id, team_abbreviation, team_city, player_id, player_name, nickname, start_position, comment, min, pts_off_tov, pts_2nd_chance, pts_fb, pts_paint, opp_pts_off_tov, opp_pts_2nd_chance, opp_pts_fb, opp_pts_paint, blk, blka, pf, pfd) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NULLIF($10, ''), NULLIF($11, ''), NULLIF($12, ''), NULLIF($13, ''), NULLIF($14, ''), NULLIF($15, ''), NULLIF($16, ''), NULLIF($17, ''), NULLIF($18, ''), NULLIF($19, ''), NULLIF($20, ''), NULLIF($21, ''), NULLIF($22, ''))`, 
+    [body.GAME_ID, body.TEAM_ID, body.TEAM_ABBREVIATION, body.TEAM_CITY, body.PLAYER_ID, body.PLAYER_NAME, body.NICKNAME, body.START_POSITION, body.COMMENT, finalMins, body.PTS_OFF_TOV, body.PTS_2ND_CHANCE, body.PTS_FB, body.PTS_PAINT, body.OPP_PTS_OFF_TOV, body.OPP_PTS_2ND_CHANCE, body.OPP_PTS_FB, body.OPP_PTS_PAINT, body.BLK, body.BLKA, body.PF, body.PFD], (error, results) => {
         if (error) {
             return next(error);
         }

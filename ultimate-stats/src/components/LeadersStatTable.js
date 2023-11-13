@@ -2,7 +2,12 @@ import React, {useState, useEffect} from "react";
 
 const LeadersStatTable = ({stat, index, statLabels, selectedSeason}) => {
 
-    console.log(statLabels[index].label)
+    console.log(statLabels[index].label);
+    console.log(statLabels[index].accessor);
+
+    for(let i = 0; i < stat.length; i++) {
+        
+    }
     return (
             <>
             <div className="stat-label">

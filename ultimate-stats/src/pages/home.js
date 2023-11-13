@@ -46,7 +46,7 @@ const Home = () => {
         {label: "% BOX OUTS REBOUND", accessor: "pct_box_outs_reb"}
     ]
 
-    const [selectedSeason, setSelectedSeason] = useState('2022-2023');
+    const [selectedSeason, setSelectedSeason] = useState('2023-2024');
     const [seasonsData, setSeasonsData] = useState([]);
     const [tableChoice, setTableChoice] = useState(<Table selectedSeason={selectedSeason}/>);
     const [tableName, setTableName] = useState('Traditional');

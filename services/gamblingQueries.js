@@ -164,7 +164,7 @@ const createMatchupResults = (request, response, next) => {
 const createExpected = (request, response, next) => {
     const {season} = request.params;
     const body = request.body;
-    db.query(`INSERT INTO "matchupresultsTEST${season}" (game_date, matchup, home_team, home_team_id, home_expected, visitor_team, visitor_team_id, visitor_expected, home_actual, visitor_actual, home_odds, visitor_odds, green_red) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
+    db.query(`INSERT INTO "matchupresults${season}" (game_date, matchup, home_team, home_team_id, home_expected, visitor_team, visitor_team_id, visitor_expected, home_actual, visitor_actual, home_odds, visitor_odds, green_red) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
                 [body.game_date, body.matchup, body.home_team, body.home_team_id, body.home_expected, body.visitor_team, body.visitor_team_id, body.visitor_expected, body.home_actual, body.visitor_actual, body.home_odds, body.visitor_odds, body.green_red],
                 (error, results) => {
         if (error) {
