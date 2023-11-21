@@ -9,11 +9,7 @@ import {TOR, DEN, HOU, IND, CHI, GSW, BOS, LAC, POR, ATL, CLE, DAL, NOP, SAC, MI
         SAS, OKC, CHA, MIN, PHX, MEM, NYK, PHI, ORL, MIA, UTA, DET } from 'react-nba-logos';
 
 
-const ExpectedResults = ({ homeExpectedResults, 
-                           setHomeExpectedResults, 
-                           visitorExpectedResults, 
-                           setVisitorExpectedResults, 
-                           game, 
+const ExpectedResults = ({ game, 
                            selectedSeason, 
                            setSelectedSeason }) => {
 
@@ -71,6 +67,7 @@ const ExpectedResults = ({ homeExpectedResults,
     let VisitorLogo;
 
     useEffect(() => {
+        console.log('getPreviousSeason');
         const getPreviousSeason = async() => {
             let split = selectedSeason.split('-')
             let previous = parseInt(split[1]) - 1;
@@ -85,6 +82,8 @@ const ExpectedResults = ({ homeExpectedResults,
 
 
     useEffect(() => {
+        console.log('getAverageScore')
+        console.log(homePreviousGameId);
         const getAverageScore = async() => {
             if (homePreviousGameId !== '1') {
                 let results = await hoop.get(`/api/leagueGames/averageScore/${homePreviousGameId}/${selectedSeason}`);
@@ -100,6 +99,7 @@ const ExpectedResults = ({ homeExpectedResults,
     }, [game, homePreviousGameId, previousSeason])
 
     useEffect(() => {
+        console.log('getPreviousGameIds')
         const getPreviousGameIds = async() => {
             if (game.game_id === 'upcoming') {
                 let homePrevious = await hoop.get(`/api/boxScoresTraditional/previousgame/gameid/${selectedSeason}/${homeTeamId}`)
@@ -139,6 +139,7 @@ const ExpectedResults = ({ homeExpectedResults,
     }, [game, homeTeamId, visitorTeamId, selectedSeason])
 
     useEffect(() => {
+        console.log('getTeamIds');
         const getTeamIds = async() => {
             if (game.game_id === 'upcoming') {
                 let results = await hoop.get(`/api/leagueGames/teamid/${game.home_team}`)
@@ -191,10 +192,6 @@ const ExpectedResults = ({ homeExpectedResults,
                     <p>Exp.</p>
                     {homePreviousGameId && averageScore > 0 ? <GetRosterFromPreviousGame averageScore={averageScore}
                                                                      previousSeason={previousSeason} 
-                                                                     homeExpectedResults={homeExpectedResults} 
-                                                                     setHomeExpectedResults={setHomeExpectedResults} 
-                                                                     visitorExpectedResults={visitorExpectedResults} 
-                                                                     setVisitorExpectedResults={setVisitorExpectedResults} 
                                                                      matchup={matchup} 
                                                                      game={game} 
                                                                      previousGameId={homePreviousGameId} 
@@ -211,10 +208,6 @@ const ExpectedResults = ({ homeExpectedResults,
                     <br></br>
                     {visitorPreviousGameId && averageScore > 0 ? <GetRosterFromPreviousGame averageScore={averageScore} 
                                                                         previousSeason={previousSeason} 
-                                                                        homeExpectedResults={homeExpectedResults} 
-                                                                        setHomeExpectedResults={setHomeExpectedResults} 
-                                                                        visitorExpectedResults={visitorExpectedResults} 
-                                                                        setVisitorExpectedResults={setVisitorExpectedResults} 
                                                                         matchup={matchup} 
                                                                         game={game} 
                                                                         previousGameId={visitorPreviousGameId} 
@@ -274,10 +267,6 @@ const ExpectedResults = ({ homeExpectedResults,
                 </div>
                 {homePreviousGameId && averageScore > 0? <GetRosterFromPreviousGame averageScore={averageScore} 
                                                                                      previousSeason={previousSeason} 
-                                                                                     homeExpectedResults={homeExpectedResults} 
-                                                                                     setHomeExpectedResults={setHomeExpectedResults} 
-                                                                                     visitorExpectedResults={visitorExpectedResults} 
-                                                                                     setVisitorExpectedResults={setVisitorExpectedResults} 
                                                                                      matchup={matchup} 
                                                                                      game={game} 
                                                                                      previousGameId={homePreviousGameId} 
@@ -307,10 +296,6 @@ const ExpectedResults = ({ homeExpectedResults,
                 </div>
                 {visitorPreviousGameId && averageScore > 0 ? <GetRosterFromPreviousGame averageScore={averageScore}
                                                                                         previousSeason={previousSeason} 
-                                                                                        homeExpectedResults={homeExpectedResults} 
-                                                                                        setHomeExpectedResults={setHomeExpectedResults} 
-                                                                                        visitorExpectedResults={visitorExpectedResults} 
-                                                                                        setVisitorExpectedResults={setVisitorExpectedResults} 
                                                                                         matchup={matchup} 
                                                                                         game={game} 
                                                                                         previousGameId={visitorPreviousGameId} 

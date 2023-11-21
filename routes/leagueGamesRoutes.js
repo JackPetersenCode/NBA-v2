@@ -310,7 +310,7 @@ router.get('/withboxscoresummary/:season', leagueGames.getGamesBySeasonJackarith
 router.get('/averageScore/:season', leagueGames.getAveragePointTotalWholeSeason);
 
 
-router.get('/averageScore/:gameId/:season', leagueGames.getAveragePointTotal);
+router.get('/averageScore/:game_date/:season', leagueGames.getAveragePointTotal);
 
 /**
  * @swagger

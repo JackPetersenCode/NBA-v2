@@ -77,6 +77,21 @@ const getPreviousRosterBySeasonByTeamByGameId = (request, response, next) => {
     })
 }
 
+const getPreviousRosterBySeasonByTeamByGameIdBoxScores = (request, response, next) => {
+    const { season, teamId, gameid } = request.params;
+    console.log('aaaaaaaa')
+    db.query(`SELECT DISTINCT player_id, player_name FROM "boxscores${season}" 
+              WHERE team_id = $1 AND game_id = $2`, [teamId, gameid], (error, results) => {
+        if (error) {
+            return next(error);
+        }
+        if (results.rows.length === 0 || results.rows[0].count === '0') {
+            return next(new Error( 'Stats Do Not Exist' ));
+        }
+        response.status(200).json(results.rows)
+    })
+}
+
 const getPlayerIdWithName = (request, response, next) => {
     let {season, name} = request.params;
     console.log(season);
@@ -90,6 +105,20 @@ const getPlayerIdWithName = (request, response, next) => {
     })
 }
 
+const getTeamIdFromTeamName = (request, response, next) => {
+    let team_abbreviation = request.params;
+    console.log(team_abbreviation)
+    db.query('SELECT DISTINCT team_id FROM "boxscorestraditional2023-2024" WHERE team_abbreviation = $1', [team_abbreviation.team_abbreviation], (error, results) => {
+        if (error) {
+            return next(error);
+        }
+        if (results.rows.length === 0 || results.rows[0].count === '0') {
+            return next(new Error( 'Stats Do Not Exist' ));
+        }
+        response.status(200).json(results.rows)
+    })
+}
+
 
 module.exports = {
     getPreviousRosterBySeasonByTeamByGameId,
@@ -98,4 +127,6 @@ module.exports = {
     getOfficialPlayerIdNameList,
     getOfficialPlayerIdList,
     getPlayerIdWithName,  
+    getTeamIdFromTeamName,
+    getPreviousRosterBySeasonByTeamByGameIdBoxScores,
 }

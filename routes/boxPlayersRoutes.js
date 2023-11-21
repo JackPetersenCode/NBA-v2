@@ -73,6 +73,9 @@ const { checkAuthenticated } = require('./userRouter');
  *       '404':
  *         description: Invalid Path
  */
+
+router.get('/teamIdFromTeamName/:team_abbreviation', boxPlayers.getTeamIdFromTeamName);
+
 router.get(`/getroster/:season/:teamid`, boxPlayers.getRosterBySeasonByTeam);
 
 /**
@@ -198,6 +201,8 @@ router.get('/teamplayers/:teamid', boxPlayers.getTeamPlayersFromTeamId);
  *         description: Invalid Path
  */
 router.get(`/previousgame/gameid/:season/:teamId/:gameid`, boxPlayers.getPreviousRosterBySeasonByTeamByGameId);
+
+router.get(`/previousgame/gameid/boxscores/:season/:teamId/:gameid`, boxPlayers.getPreviousRosterBySeasonByTeamByGameIdBoxScores);
 
 router.get(`/:season/:name`, boxPlayers.getPlayerIdWithName);
 module.exports = router;

@@ -252,6 +252,10 @@ const getWinPercentageOverall = (request, response, next) => {
                 UNION ALL
                 SELECT green_red, COUNT(*)
                 FROM "matchupresults2022-2023"
+                GROUP BY green_red
+                UNION ALL
+                SELECT green_red, COUNT(*)
+                FROM "matchupresults2023-2024"
                 GROUP BY green_red`,
                 (error, results) => {
         if (error) {

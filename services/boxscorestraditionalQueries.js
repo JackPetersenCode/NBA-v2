@@ -60,7 +60,8 @@ const getBoxScoreTraditionalAverages = async(request, response, next) => {
 }
 
 const getBoxScoreTraditional82GameAverages = async(request, response, next) => {
-    let { gameId, playerid, season, H_or_V } = request.params;
+    let { gameId, playerid, season, H_or_V, game_date } = request.params;
+    console.log(game_date);
 
     db.query(`SELECT player_id, player_name AS NAME, team_id, team_abbreviation AS TEAM,
                 AVG(COALESCE(CAST(min AS NUMERIC), 0.0)) AS MIN, 
@@ -89,8 +90,9 @@ const getBoxScoreTraditional82GameAverages = async(request, response, next) => {
                 on "boxscorestraditional${season}".game_id = "boxscoresummary${season}".game_id
                 WHERE player_id = $1
                 AND "boxscorestraditional${season}".team_id = "boxscoresummary${season}".${H_or_V}_team_id
-                AND "boxscorestraditional${season}".game_id < $2
-                GROUP BY player_id, player_name, team_id, team_abbreviation`, [playerid, gameId], (error, results) => {
+                AND game_date_est != 'GAME_DATE_EST'
+                AND (CAST(SUBSTRING(game_date_est, 0, 11) AS DATE) < $2)
+                GROUP BY player_id, player_name, team_id, team_abbreviation`, [playerid, game_date], (error, results) => {
         if (error) {
             return next(error);
         }
@@ -290,14 +292,17 @@ const getBoxNumFromGameIdSeason = (request, response, next) => {
     })
 }
 
-  
+/////////////////////MEANT TO BE USED WITH THE 'JACKORITHM.JS' FILE//////////////////////////////
 const getPreviousGameIdByGameIdTeamId = (request, response, next) => {
-    const {gameId, season, teamid} = request.params;
+    const {gameId, season, teamid, game_date} = request.params;
 
-    db.query(`SELECT game_id FROM "boxscorestraditional${season}"
-                WHERE team_id = $1
-                AND game_id < $2
-                ORDER BY game_id DESC LIMIT 1`, [teamid, gameId], (error, results) => {
+    console.log(gameId)
+    db.query(`SELECT game_id, game_date_est 
+                FROM "boxscoresummary${season}"
+                WHERE game_date_est != 'GAME_DATE_EST'
+                    AND (CAST(SUBSTRING(game_date_est, 0, 11) AS DATE) < $2)
+                    AND (home_team_id = $1 OR visitor_team_id = $1)
+                ORDER BY game_date_est DESC LIMIT 1;`, [teamid, game_date], (error, results) => {
         if (error) {
             return next(error);
         }

@@ -25,7 +25,9 @@ const getGamesBySeasonLocal = async(request, response, next) => {
         response.status(200).json(results.rows)
     })
 }
-
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////// WHERE matchup LIKE '%vs.%'///////////////////////
+/////////////////////////////////////////////////////////////////////////////
 const getGamesBySeasonJackarithm = async(request, response, next) => {
     let season = request.params;
     season = season["season"];
@@ -47,10 +49,16 @@ const getGamesBySeasonJackarithm = async(request, response, next) => {
 }
  
 const getAveragePointTotal = async(request, response, next) => {
-    let { gameId, season } = request.params;
+    let { game_date, season } = request.params;
+    console.log('game date')
+    console.log(game_date)
+
     db.query(`SELECT AVG(CAST(pts AS FLOAT))
                 FROM "leagueGames${season}"
-                WHERE game_id < $1`, [gameId], (error, results) => {
+                INNER JOIN "boxscoresummary${season}"
+                ON "boxscoresummary${season}".game_id = "leagueGames${season}".game_id
+                WHERE game_date_est != 'GAME_DATE_EST'
+                AND (CAST(SUBSTRING(game_date_est, 0, 11) AS DATE) < $1)`, [game_date], (error, results) => {
         if (error) {
             return next(error);
         }

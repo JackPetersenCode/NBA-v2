@@ -84,11 +84,7 @@ const Jackarithm = () => {
                     <h2>
                         Upcoming Games
                     </h2>
-                    <Upcoming //homeExpectedResults={homeExpectedResults}
-                              //setHomeExpectedResults={setHomeExpectedResults}
-                              //visitorExpectedResults={visitorExpectedResults}
-                              //setVisitorExpectedResults={setVisitorExpectedResults}
-                              />
+                    <Upcoming />
                 </div>
             </div>
         </div>         

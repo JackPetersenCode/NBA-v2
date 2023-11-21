@@ -55,6 +55,8 @@ from nba_api.stats.library.http import NBAStatsHTTP
 from nba_api.stats.library.parameters import PerMode36, LeagueIDNullable
 import requests
 import aiocron
+from datetime import datetime, timedelta
+
 #from postFunctions import post_league_games_by_season
 # Load environment variables from .env file
 load_dotenv()
@@ -137,7 +139,7 @@ def readLeagueGames():
     start = int(count) * 2
     print(start)
     print(end)
-    for i in range (start, end):
+    for i in range (start - 1, end):
         ##print(len(games["resultSets"][0]["rowSet"]))
         ##print(games["resultSets"][0]["rowSet"][i])
         print(i)
@@ -592,7 +594,7 @@ def readLeagueGamesTraditional():
     idList = []
     end = len(games["resultSets"][0]["rowSet"])
     start = int(count) * 2
-    for i in range (start, end):
+    for i in range (start - 1, end):
         print(i)
         if games["resultSets"][0]["rowSet"][i][4] in idList or games["resultSets"][0]["rowSet"][i][4] is None:
             continue
@@ -728,7 +730,7 @@ def readBoxScoreSummary():
     end = len(games["resultSets"][0]["rowSet"])
     start = int(count)
     
-    for i in range (start, end):
+    for i in range (start - 1, end):
         print(i)
         if games["resultSets"][0]["rowSet"][i][4] in idList or games["resultSets"][0]["rowSet"][i][4] is None:
             print(games["resultSets"][0]["rowSet"][i][4])
@@ -767,13 +769,29 @@ def getOdds():
     response = requests.get(url = URL)
     data = response.json()
     rows = []
+
+    def convert_zulu_to_cst(zulu_time):
+    # Parse the Zulu time string into a datetime object
+        zulu_datetime = datetime.strptime(zulu_time, '%Y-%m-%dT%H:%M:%SZ')
+
+        # Set the time zone offset for Central Standard Time (CST)
+        cst_offset = timedelta(hours=-6)
+
+        # Apply the offset to get CST time
+        cst_datetime = zulu_datetime + cst_offset
+
+        # Format the CST datetime as a string
+        cst_time_string = cst_datetime.strftime('%Y-%m-%d %H:%M:%S')
+        
+        return cst_time_string
+    
     for i in range (0, len(data)):
 
         if len(data[i]['bookmakers']) > 0:
             print(i)
             rowSet = [
                 'upcoming',
-                data[i]['commence_time'][0:10],
+                convert_zulu_to_cst(data[i]['commence_time'])[0:10],
                 data[i]['home_team'],
                 data[i]['away_team'],
                 str(data[i]['bookmakers'][0]['markets'][0]['outcomes'][0]['price']),
@@ -783,7 +801,7 @@ def getOdds():
         else:
             rowSet = [
                 'upcoming',
-                data[i]['commence_time'][0:10],
+                convert_zulu_to_cst(data[i]['commence_time'])[0:10],
                 data[i]['home_team'],
                 data[i]['away_team'],
                 'no odds available',
@@ -816,7 +834,7 @@ def readLeagueMisc():
     start = int(count) * 2
     print(start)
     print(end)
-    for i in range (start, end):
+    for i in range (start - 1, end):
         print(i)
         if games["resultSets"][0]["rowSet"][i][4] in idList or games["resultSets"][0]["rowSet"][i][4] is None:
             print(games["resultSets"][0]["rowSet"][i][4])

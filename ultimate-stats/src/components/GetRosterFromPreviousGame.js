@@ -7,10 +7,6 @@ import hoop from "../apis/hoop";
 
 const GetRosterFromPreviousGame = ({ averageScore, 
                                         previousSeason, 
-                                        homeExpectedResults, 
-                                        setHomeExpectedResults, 
-                                        visitorExpectedResults, 
-                                        setVisitorExpectedResults, 
                                         matchup, 
                                         game, 
                                         previousGameId, 
@@ -144,7 +140,7 @@ const GetRosterFromPreviousGame = ({ averageScore,
     return (
         <>
             {roster.map((player, index, roster) => (
-                <ExpectedFromRoster key={index} gameDate={gameDate} matchup={matchup} averageScore={averageScore} previousSeason={previousSeason} H_or_V={H_or_V} roster={roster} homeExpectedResults={homeExpectedResults} setHomeExpectedResults={setHomeExpectedResults} visitorExpectedResults={visitorExpectedResults} setVisitorExpectedResults={setVisitorExpectedResults} index={index} totalStat={totalStat} setTotalStat={setTotalStat} totalMins={totalMins} setTotalMins={setTotalMins} gameId={previousGameId} selectedSeason={selectedSeason} playerId={player.player_id} teamId={teamId} />
+                <ExpectedFromRoster key={index} gameDate={gameDate} matchup={matchup} averageScore={averageScore} previousSeason={previousSeason} H_or_V={H_or_V} roster={roster} index={index} totalStat={totalStat} setTotalStat={setTotalStat} totalMins={totalMins} setTotalMins={setTotalMins} gameId={previousGameId} selectedSeason={selectedSeason} playerId={player.player_id} teamId={teamId} />
             ))}
         </>
     )
