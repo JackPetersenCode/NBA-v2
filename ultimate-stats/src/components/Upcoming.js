@@ -135,8 +135,12 @@ const Upcoming = () => {
                     return roster;
                 } else {
                     let roster = await getJsonResponseJackorithm(`/api/boxPlayers/previousgame/gameid/${season}/${teamId}/${previousGameId}`);
+                    if (!roster || roster.length === 0) {
+                        roster = await getJsonResponseJackorithm(`/api/boxPlayers/previousgame/gameid/boxscores/${season}/${teamId}/${previousGameId}`);
+                    }
                     return roster;
                 }
+                
             }
             
         
@@ -289,6 +293,7 @@ const Upcoming = () => {
                 //let homeTeamId = game.home_team_id;
             
                 let homePrevious = await getJsonResponseJackorithm(`/api/boxScoresTraditional/previousgameid/${game.game_id}/${season}/${homeTeamId}/${game.commence_time}`)
+                console.log(homePrevious)
                 if (homePrevious.length < 1) {
                     homePrevious = '1';
                 } else {
@@ -296,9 +301,9 @@ const Upcoming = () => {
                 }
             
                 let homeRoster = await getRoster(season, homeTeamId, homePrevious);
-
+                console.log(homeRoster)
                 let visitorPrevious = await getJsonResponseJackorithm(`/api/boxScoresTraditional/previousgameid/${game.game_id}/${season}/${visitorTeamId}/${game.commence_time}`)
-            
+                console.log(visitorPrevious)
                 if (visitorPrevious.length < 1) {
                     visitorPrevious = '1';
                 } else {
@@ -306,9 +311,12 @@ const Upcoming = () => {
                 }
             
                 let visitorRoster = await getRoster(season, visitorTeamId, visitorPrevious);
+                console.log(visitorRoster)
                 let homeExpected = await getExpectedFromRoster(season, 'home', homeRoster, homePrevious, stat, previousSeason, game.commence_time);
-            
+                console.log(homeExpected)
                 let visitorExpected = await getExpectedFromRoster(season, 'visitor', visitorRoster, visitorPrevious, stat, previousSeason, game.commence_time);
+                console.log(visitorExpected)
+                
                 return [ homeTeamId, homeExpected, visitorTeamId, visitorExpected];
             }
         
@@ -316,11 +324,13 @@ const Upcoming = () => {
                 let totalMins = 0.0;
                 let totalStat = 0.0;
                 let averageScore = await getAverageScore(season, previousGameId, previousSeason, game_date)
+                console.log(averageScore)
                 for (let i = 0; i < roster.length; i++) {
                 
                     let averages;
                     if (previousGameId !== '1') {
                         averages = await getJsonResponseJackorithm(`/api/boxScoresTraditional/averages/82games/${previousGameId}/${roster[i].player_id}/${season}/${H_or_V}/${game_date}`)
+                        
                         if (averages.length > 0) {
                             totalMins += parseFloat(averages[0].min);
                             totalStat += parseFloat(averages[0][stat]);
