@@ -103,9 +103,11 @@ const postWriteJsonPlayers = async(obj) => {
     } 
 }
 
-const postPlayersNBA = async(obj) => {
+const postPlayersNBA = async(obj, program) => {
     console.log('skittttttttlllllllllllleeeeeeeeeeeesssssssssssssssssssssssssssssssssssssssssssssssss');
     console.log(obj);
+    obj['program'] = program;
+    console.log(obj)
     
     const url = '/api/playersNBA';
     try{
@@ -1242,9 +1244,9 @@ const runOncePerDay = async() => {
   await updateDatabase();
 }
 
-teamsDropDown();
-getAnyStatEveryPlayerRanked('pts');
-getSchedule();
+//teamsDropDown();
+//getAnyStatEveryPlayerRanked('pts');
+//getSchedule();
 
 
 //UNCOMMENT THIS CODE AND THE DATABASE WILL DELETE ITSELF AND REPLENISH EVERY TIME YOU START THE SERVER

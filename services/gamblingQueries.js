@@ -137,7 +137,7 @@ const getUpcomingGames = (request, response, next) => {
                 game_id
                 from "newOdds${season}"
                 WHERE commence_time != 'commence_time'
-                order by commence_time desc limit 10`, (error, results) => {
+                order by commence_time desc limit 15`, (error, results) => {
         if (error) {
             return next(error);
         }

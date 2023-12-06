@@ -14,8 +14,10 @@ const getPlayersNBA = async(request, response, next) => {
 
 const createPlayersNBA = async(request, response, next) => {
     //console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKKKKKKKKKKKKKK');
+    let table;
     let body = request.body;
-    db.query('INSERT INTO "playersNBA" (full_name, first_name, last_name, is_active, playerid) VALUES ($1, $2, $3, $4, $5)', 
+
+    db.query(`INSERT INTO "playersNBA" (full_name, first_name, last_name, is_active, playerid) VALUES ($1, $2, $3, $4, $5)`, 
         [body.full_name, body.first_name, body.last_name, body.is_active, body.playerid], (error, results) => {
         if (error) {
             return next(error);

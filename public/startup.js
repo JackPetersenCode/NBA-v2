@@ -36,6 +36,8 @@ const loadUpBoxScoreSummaryButton = document.getElementById("loadUpBoxScoreSumma
 const loadUpNewOddsButton = document.getElementById("loadUpNewOdds");
 const loadUpLeagueHustleStatsButton = document.getElementById("loadUpLeagueHustleStatsButton");
 
+let program = 'csharp';
+
 
 const getJsonResponseStartup = async (url) => {
     console.log(url);
@@ -369,18 +371,24 @@ const loadUpNBAPlayers = async() => {
             is_active: players[i].is_active,
         }
         console.log(player);
-        let results = await postPlayersNBA(player);
+        let results = await postPlayersNBA(player, program);
     }  
     console.log('FINISHED!');
 }
 
+
+//need to change:
+//
 const loadUpLeagueGamesBySeason = async() => {
-    //let years = ['2015-2016', '2016-2017', '2017-2018', '2018-2019', '2019-2020', '2020-2021', '2021-2022', '2022-2023'];
     let years = ['2023-2024'];
-    let tableLength = await getJsonResponseStartup(`/api/tablelength/leagueGames2023-2024`);
-    tableLength = (tableLength[0].count)
-    console.log(tableLength)
+    //let years = ['2016-2017'];
+    //let tableLength = await getJsonResponseStartup(`/api/tablelength/leagueGames${years[0]}`);
+    //tableLength = (tableLength[0].count)
+    //console.log(tableLength)
     for (let i = 0; i < years.length; i++) {
+        let tableLength = await getJsonResponseStartup(`/api/tablelength/leagueGames${years[i]}`);
+        tableLength = (tableLength[0].count)
+        console.log(tableLength)
         let gamesArray = await getJsonResponseStartup(`/api/leagueGames/${years[i]}`);
         console.log(gamesArray.resultSets.length)
         console.log(gamesArray)

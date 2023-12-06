@@ -95,21 +95,21 @@ const writePlayersCSV = (request, response) => {
 
 
 
-const getTeamNames = async(request, response) => {
+const getTeamNames = async(request, response, next) => {
   console.log('inside getTeamNames in leagueGamesQueries')
   db.query('SELECT DISTINCT team_name FROM "leagueGames2021-2022"', (error, results) => {
       if (error) {
-          console.log(error)
+          return next(error)
       }
       response.status(200).json(results.rows)
   })
 }
 
-const getStatsHeadersFromTable = (request, response) => {
+const getStatsHeadersFromTable = (request, response, next) => {
   const table = request.params;
   db.query(`SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'${table.table}'`, (error, results) => {
     if (error) {
-        console.log(error)
+        return next(error)
     }
     response.status(200).json(results.rows)
   })
