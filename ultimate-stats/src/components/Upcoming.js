@@ -283,7 +283,6 @@ const Upcoming = () => {
                     visitor_abbr: visitor_abbr
                     //green_red: green_red
                 }
-                console.log(obj);
                 setUpcomingGames((currentGames) => [...currentGames, obj]);
                 //postExpectedMatchup(obj, season)
             }
@@ -293,7 +292,6 @@ const Upcoming = () => {
                 //let homeTeamId = game.home_team_id;
             
                 let homePrevious = await getJsonResponseJackorithm(`/api/boxScoresTraditional/previousgameid/${game.game_id}/${season}/${homeTeamId}/${game.commence_time}`)
-                console.log(homePrevious)
                 if (homePrevious.length < 1) {
                     homePrevious = '1';
                 } else {
@@ -301,9 +299,7 @@ const Upcoming = () => {
                 }
             
                 let homeRoster = await getRoster(season, homeTeamId, homePrevious);
-                console.log(homeRoster)
                 let visitorPrevious = await getJsonResponseJackorithm(`/api/boxScoresTraditional/previousgameid/${game.game_id}/${season}/${visitorTeamId}/${game.commence_time}`)
-                console.log(visitorPrevious)
                 if (visitorPrevious.length < 1) {
                     visitorPrevious = '1';
                 } else {
@@ -311,11 +307,8 @@ const Upcoming = () => {
                 }
             
                 let visitorRoster = await getRoster(season, visitorTeamId, visitorPrevious);
-                console.log(visitorRoster)
                 let homeExpected = await getExpectedFromRoster(season, 'home', homeRoster, homePrevious, stat, previousSeason, game.commence_time);
-                console.log(homeExpected)
                 let visitorExpected = await getExpectedFromRoster(season, 'visitor', visitorRoster, visitorPrevious, stat, previousSeason, game.commence_time);
-                console.log(visitorExpected)
                 
                 return [ homeTeamId, homeExpected, visitorTeamId, visitorExpected];
             }
@@ -324,7 +317,6 @@ const Upcoming = () => {
                 let totalMins = 0.0;
                 let totalStat = 0.0;
                 let averageScore = await getAverageScore(season, previousGameId, previousSeason, game_date)
-                console.log(averageScore)
                 for (let i = 0; i < roster.length; i++) {
                 
                     let averages;
@@ -422,7 +414,6 @@ const Upcoming = () => {
             //        away_odds: "-110"
             //    }]
             //}
-            console.log(games)
 
             for (let i = 0; i < games.data.length; i++) {
                 let homeTeamId = await hoop.get(`/api/boxPlayers/teamIdFromTeamName/${teams[games.data[i].home_team]}`)

@@ -14,7 +14,6 @@ const TableMisc = ({ selectedSeason, setSelectedSeason }) => {
         hoop.get(`/api/statranked/boxScoresMisc/${selectedSeason}`) // your url may look different
         .then(data => setTableData(data.data)) // set data to state
     }, [selectedSeason]);
-    console.log(tableData);
 
     columns = [
         { label: "NAME", accessor: "player_name" },

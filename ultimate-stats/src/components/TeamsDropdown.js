@@ -18,7 +18,6 @@ const TeamsDropdown = ({teamsData, setTeamsData, selectedTeam, setSelectedTeam, 
 
     function handleTeamChange(event) {
         setSelectedTeam(() => event.target.value);
-        console.log(selectedTeam)
     }
 
     return (

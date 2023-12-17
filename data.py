@@ -966,7 +966,7 @@ def boxScoreMiscFunction(gameid):
 ##allassists()
 ##assiststracker()
 ##playergamelogfunction('153', '0021700807')
-##readLeagueGames()
+readLeagueGames()
 ##leaguehustlestats()
 ##leaguehustlestatsleaders()
 ##leaguedashlineupsfunction()
