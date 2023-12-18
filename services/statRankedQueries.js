@@ -30,6 +30,9 @@ const getRankedPlayersByStat = (request, response, next) => {
 
 const getRankedStats = (request, response, next) => {
 
+    console.log(process.env.PG_PASSWORD)
+    console.log(process.env.PG_USER)
+
     let { season } = request.params;
     db.query(`SELECT player_id, player_name, team_id, team_abbreviation,
                 AVG(CAST(min AS FLOAT)) AS MIN, 
