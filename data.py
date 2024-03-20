@@ -11,9 +11,9 @@ from types import SimpleNamespace
 from unittest import result
 from urllib import response
 from xml.etree.ElementTree import tostring
-from nba_api.stats.endpoints import boxscoremiscv2, boxscoresummaryv2, playercareerstats, leaguedashplayerstats, boxscoretraditionalv2, leaguedashplayershotlocations, leaguedashplayerptshot, leaguedashplayerclutch, assistleaders, assisttracker, leaguegamelog, leaguehustlestatsplayer, leaguedashlineups, leaguedashoppptshot, shotchartdetail, alltimeleadersgrids, boxscoreadvancedv2, playergamelog
+from nba_api.stats.endpoints import boxscoremiscv2, boxscoresummaryv2, defensehub, playercareerstats, leaguedashplayerstats, boxscoretraditionalv2, leaguedashplayershotlocations, leaguedashplayerptshot, leaguedashplayerclutch, assistleaders, assisttracker, leaguegamelog, leaguehustlestatsplayer, leaguedashlineups, leaguedashoppptshot, shotchartdetail, alltimeleadersgrids, boxscoreadvancedv2, playergamelog
 from nba_api.stats.library.parameters import LeagueID, PerModeSimple, PlayerOrTeam, Season, SeasonType
-from nba_api.stats.library.parameters import ConferenceNullable, DivisionSimpleNullable, GameScopeSimpleNullable, LastNGamesNullable, LeagueIDNullable, LocationNullable, MonthNullable, OutcomeNullable, PerModeSimpleNullable, PlayerExperienceNullable, PlayerPositionAbbreviationNullable, SeasonNullable, SeasonSegmentNullable, SeasonTypeAllStarNullable, StarterBenchNullable, DivisionNullable
+from nba_api.stats.library.parameters import ConferenceNullable, DivisionSimpleNullable, PlayerScope, GameScopeDetailed, GameScopeSimpleNullable, LastNGamesNullable, LeagueIDNullable, LocationNullable, MonthNullable, OutcomeNullable, PerModeSimpleNullable, PlayerExperienceNullable, PlayerPositionAbbreviationNullable, SeasonNullable, SeasonSegmentNullable, SeasonTypeAllStarNullable, StarterBenchNullable, DivisionNullable
 from nba_api.stats.library.parameters import EndPeriod, EndRange, RangeType, StartPeriod, StartRange
 from nba_api.stats.library.parameters import Direction, LeagueID, PlayerOrTeamAbbreviation, Season, SeasonTypeAllStar, Sorter
 from nba_api.stats.endpoints._base import Endpoint
@@ -157,7 +157,7 @@ def boxscoreadvanced(gameId):
 		game_id=gameId,
 		end_period=EndPeriod.default,
 		end_range=EndRange.default,
-		range_type=Season,
+		range_type=RangeType.default,
 		start_period=StartPeriod.default,
 		start_range=StartRange.default,
 		proxy=None,
@@ -201,13 +201,13 @@ def shotchartdetailfunction():
 	response = shotchartdetail.ShotChartDetail(
 		team_id=0,
 		player_id=0,
-		context_measure_simple='FGA',
+		context_measure_simple='PTS',
 		season_nullable='2023-24',
 		season_type_all_star='Regular Season',
 	)
 	content = json.loads(response.get_json())
 	jsonContent = json.dumps(content)
-	with open("./juicystats/2023-2024.json", "w") as outfile:
+	with open("./juicystats/2023-2024_PTS.json", "w") as outfile:
 	    outfile.write(jsonContent)
 
 def playergamelogfunction(playerId, season):
@@ -330,11 +330,11 @@ def leaguehustlestatsleaders():
 	with open("leaguehustlestatsplayerleaders2022-2023.json", "w") as outfile:
 	    outfile.write(jsonContent)
 
-def leaguedashlineupsfunction():
+def leaguedashlineupsfunction(groupQuantity, measureType, season):
 	response = leaguedashlineups.LeagueDashLineups(
-		group_quantity=GroupQuantity.default,
+		group_quantity=groupQuantity,
         last_n_games=LastNGames.default,
-        measure_type_detailed_defense=MeasureTypeDetailedDefense.default,
+        measure_type_detailed_defense=measureType,
         month=Month.default,
         opponent_team_id=0,
         pace_adjust=PaceAdjust.default,
@@ -342,7 +342,7 @@ def leaguedashlineupsfunction():
         period=Period.default,
         plus_minus=PlusMinus.default,
         rank=Rank.default,
-        season='2022-23',
+        season=season,
         season_type_all_star=SeasonTypeAllStar.default,
         conference_nullable=ConferenceNullable.default,
         date_from_nullable='',
@@ -364,8 +364,8 @@ def leaguedashlineupsfunction():
         get_request=True
 	)
 	content = json.loads(response.get_json())
-	jsonContent = json.dumps(content)
-	with open("./juicystats/leaguedashlineups2022-2023.json", "w") as outfile:
+	jsonContent = json.dumps(content) 
+	with open(f"./juicystats/league_dash_lineups_{measureType}_{groupQuantity}man_{season}.json", "w") as outfile:
 	    outfile.write(jsonContent)
 
 def leaguedashoppptshotfunction():
@@ -594,7 +594,7 @@ def readLeagueGamesTraditional():
     idList = []
     end = len(games["resultSets"][0]["rowSet"])
     start = int(count) * 2
-    for i in range (start - 1, end):
+    for i in range (start, end):
         print(i)
         if games["resultSets"][0]["rowSet"][i][4] in idList or games["resultSets"][0]["rowSet"][i][4] is None:
             continue
@@ -765,7 +765,7 @@ def boxScoreSummaryFunction(gameid):
         print("VALUE ERROR?!?!?!!?!!??!?!??!??!?!!?")
 
 def getOdds():
-    URL = 'https://api.the-odds-api.com/v4/sports/basketball_nba/odds/?apiKey=f8d80068fa8107d46ae62e3a3f15092f&regions=us&markets=h2h&oddsFormat=american&bookmakers=draftkings&commenceTimeTo=2023-12-24T23:59:59Z'
+    URL = 'https://api.the-odds-api.com/v4/sports/basketball_nba/odds/?apiKey=f8d80068fa8107d46ae62e3a3f15092f&regions=us&markets=h2h&oddsFormat=american&bookmakers=draftkings'
     response = requests.get(url = URL)
     data = response.json()
     rows = []
@@ -870,8 +870,25 @@ def boxScoreMiscFunction(gameid):
     except ValueError:
         print("VALUE ERROR?!?!?!!?!!??!?!??!??!?!!?")
 
-
-
+def defenseHub():
+    response = defensehub.DefenseHub(
+        game_scope_detailed=GameScopeDetailed.default,
+        league_id=LeagueID.default,
+        player_or_team=PlayerOrTeam.default,
+        player_scope=PlayerScope.default,
+        season='2023-24',
+        season_type_playoffs=SeasonType.default,
+        proxy=None,
+        headers=None,
+        timeout=30,
+        get_request=True
+    )
+    
+    content = json.loads(response.get_json())
+    print(content)
+    jsonContent = json.dumps(content)
+    with open("./juicystats/defensehub.json", "w") as outfile:
+	    outfile.write(jsonContent)
 #async def my_function():
 #    # Your function's logic here
 #    # Access the environment variable
@@ -966,10 +983,10 @@ def boxScoreMiscFunction(gameid):
 ##allassists()
 ##assiststracker()
 ##playergamelogfunction('153', '0021700807')
-readLeagueGames()
+##readLeagueGames()
 ##leaguehustlestats()
 ##leaguehustlestatsleaders()
-##leaguedashlineupsfunction()
+##leaguedashlineupsfunction('5', 'Opponent', '2023-24')
 ##leaguedashoppptshotfunction()
 ##write()
 ##leaguedashplayerclutchfunction()
@@ -981,5 +998,7 @@ readLeagueGames()
 ##getPlayerIds()
 ##readBoxScoreSummary()
 ##writeNBAplayers()
-##getOdds()
+
+getOdds()
 ##readLeagueMisc()
+##defenseHub()

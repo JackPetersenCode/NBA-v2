@@ -68,6 +68,7 @@ const getPreviousRosterBySeasonByTeamByGameId = (request, response, next) => {
     db.query(`SELECT DISTINCT player_id, player_name FROM "boxscorestraditional${season}" 
               WHERE team_id = $1 AND game_id = $2`, [teamId, gameid], (error, results) => {
         if (error) {
+            console.log(error)
             return next(error);
         }
         if (results.rows.length === 0 || results.rows[0].count === '0') {
