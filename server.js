@@ -42,7 +42,15 @@ const swaggerOptions = {
               ],        
         }
     },
-    apis: ["./routes/boxPlayersRoutes.js"]
+    apis: ["server.js", "./routes/boxPlayersRoutes.js", "./routes/boxRoutes.js", "./routes/boxScoreMiscRoutes.js",
+            "./routes/boxScoreScoringRoutes.js", "./routes/boxScoresTraditionalRoutes.js",
+            "./routes/boxScoreSummaryRoutes.js", "./routes/carmeloRoutes.js", "./routes/fourFactorsRoutes.js",
+            "./routes/gamblingRoutes.js", "./routes/hustleStatsRoutes.js", "./routes/leagueDashLineupsRoutes.js",
+            "./routes/leagueDashOppShotRoutes.js","./routes/leagueDashPlayerClutchRoutes.js",
+            "./routes/leagueDashPlayerPtShotRoutes.js", "./routes/leagueGamesRoutes.js", "./routes/mvpPointsRoutes.js",
+            "./routes/playersNBARoutes.js", "./routes/playerTrackerRoutes.js", "./routes/publicApiPlayersRoutes.js",
+            "./routes/publicGamesRoutes.js", "./routes/regularSeasonStatsRoutes.js", "./routes/shotsRoutes.js", "./models/user.js",
+            "./routes/userRouter.js", "./routes/statRankedRouter.js"]
 }
 
 //apis: ["server.js", "./routes/boxPlayersRoutes.js", "./routes/boxRoutes.js", "./routes/boxScoreMiscRoutes.js",
@@ -56,11 +64,7 @@ const swaggerOptions = {
 //"./routes/userRouter.js", "./routes/statRankedRouter.js"]
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use(
-    '/api-docs',
-    swaggerUi.serve, 
-    swaggerUi.setup(swaggerDocs, {explorer: true})
-);
+
 
 app.use(flash());
 
@@ -100,6 +104,12 @@ if (process.env.NODE_ENV === "production") {
 app.set('view engine', 'ejs');
 
 app.use(cors());
+
+app.use(
+    '/api-docs',
+    swaggerUi.serve, 
+    swaggerUi.setup(swaggerDocs, {explorer: true})
+);
 /*app.use(cors({
     origin: ["http://localhost:3001"],
     credentials: true
