@@ -233,6 +233,10 @@ const getExpectedFromRoster = async(season, H_or_V, roster, previousGameId, stat
         
         let averages;
         if (previousGameId !== '1') {
+            console.log(season)
+            console.log(previousGameId)
+            console.log(previousSeason)
+            console.log(game_date)
             averages = await getJsonResponseJackorithm(`/api/boxScoresTraditional/averages/82games/${previousGameId}/${roster[i].player_id}/${season}/${H_or_V}/${game_date}`)
             console.log(averages)
             if (averages.length > 0) {

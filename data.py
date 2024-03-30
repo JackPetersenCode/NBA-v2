@@ -43,7 +43,7 @@ from nba_api.stats.library.http import NBAStatsHTTP
 from nba_api.stats.library.parameters import DistanceRange, LastNGames, MeasureTypeSimple, Month, PaceAdjust, PerModeDetailed, Period, PlusMinus, Rank, Season, SeasonTypeAllStar, ConferenceNullable, DivisionSimpleNullable, GameScopeSimpleNullable, GameSegmentNullable, LeagueIDNullable, LocationNullable, OutcomeNullable, PlayerExperienceNullable, PlayerPositionAbbreviationNullable, SeasonSegmentNullable, ShotClockRangeNullable, StarterBenchNullable, DivisionNullable
 from nba_api.stats.endpoints._base import Endpoint
 from nba_api.stats.library.http import NBAStatsHTTP
-from nba_api.stats.library.parameters import DistanceRange, LastNGames, MeasureTypeSimple, Month, PaceAdjust, PerModeDetailed, Period, PlusMinus, Rank, Season, SeasonTypeAllStar, ConferenceNullable, DivisionSimpleNullable, GameScopeSimpleNullable, GameSegmentNullable, LeagueIDNullable, LocationNullable, OutcomeNullable, PlayerExperienceNullable, PlayerPositionAbbreviationNullable, SeasonSegmentNullable, ShotClockRangeNullable, StarterBenchNullable, DivisionNullable
+from nba_api.stats.library.parameters import DistanceRange, ContextMeasureSimple, LastNGames, MeasureTypeSimple, Month, PaceAdjust, PerModeDetailed, Period, PlusMinus, Rank, Season, SeasonTypeAllStar, ConferenceNullable, DivisionSimpleNullable, GameScopeSimpleNullable, GameSegmentNullable, LeagueIDNullable, LocationNullable, OutcomeNullable, PlayerExperienceNullable, PlayerPositionAbbreviationNullable, SeasonSegmentNullable, ShotClockRangeNullable, StarterBenchNullable, DivisionNullable
 from nba_api.stats.endpoints._base import Endpoint
 from nba_api.stats.library.http import NBAStatsHTTP
 from nba_api.stats.library.parameters import EndPeriod, EndRange, RangeType, StartPeriod, StartRange
@@ -201,13 +201,13 @@ def shotchartdetailfunction():
 	response = shotchartdetail.ShotChartDetail(
 		team_id=0,
 		player_id=0,
-		context_measure_simple='PTS',
+		context_measure_simple='FGA',
 		season_nullable='2023-24',
 		season_type_all_star='Regular Season',
 	)
 	content = json.loads(response.get_json())
 	jsonContent = json.dumps(content)
-	with open("./juicystats/2023-2024_PTS.json", "w") as outfile:
+	with open("./juicystats/2023-2024.json", "w") as outfile:
 	    outfile.write(jsonContent)
 
 def playergamelogfunction(playerId, season):
@@ -999,6 +999,6 @@ def defenseHub():
 ##readBoxScoreSummary()
 ##writeNBAplayers()
 
-getOdds()
+##getOdds()
 ##readLeagueMisc()
 ##defenseHub()
