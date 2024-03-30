@@ -3,7 +3,7 @@ const url = require('url');
 require('dotenv').config();
 
 const config = {
-  user: "petejackerson",
+  user: "ubuntu",
   host: "localhost",
   database: "nbastatistics",
   password: "redsox45",
