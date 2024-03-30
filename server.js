@@ -42,17 +42,35 @@ const swaggerOptions = {
             "./routes/leagueDashOppShotRoutes.js","./routes/leagueDashPlayerClutchRoutes.js",
             "./routes/leagueDashPlayerPtShotRoutes.js", "./routes/leagueGamesRoutes.js", "./routes/mvpPointsRoutes.js",
             "./routes/playersNBARoutes.js", "./routes/playerTrackerRoutes.js", "./routes/publicApiPlayersRoutes.js",
-            "./routes/publicGamesRoutes", "./routes/regularSeasonStatsRoutes.js", "./routes/shotsRoutes.js", "./models/user.js",
+            "./routes/publicGamesRoutes.js", "./routes/regularSeasonStatsRoutes.js", "./routes/shotsRoutes.js", "./models/user.js",
             "./routes/userRouter.js", "./routes/statRankedRouter.js"]
 }
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
-//app.use(cors());
 app.use(
-    '/api/api-docs',
+    '/api-docs',
     swaggerUi.serve, 
     swaggerUi.setup(swaggerDocs)
 );
+
+/**
+ * @swagger
+ * /test:
+ *   get:
+ *     summary: Test route for Swagger documentation
+ *     description: Returns a test message to verify Swagger integration
+ *     responses:
+ *       200:
+ *         description: A JSON object containing a test message
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: This is a test route for Swagger!
+ */
 
 app.use(flash());
 
@@ -199,7 +217,9 @@ app.get(`/api/tablelength/:table`, db.getTableLength);
 
 app.get(`/api/tablelengthbox/:table`, db.getTableLengthBox);
 
-
+app.get('/api/test', (req, res) => {
+    res.json({ message: 'This is a test route for Swagger!' });
+});
 app.use(errorLogger);
 app.use(errorResponder);
 app.use(invalidPathHandler);
