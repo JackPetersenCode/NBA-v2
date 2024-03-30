@@ -32,7 +32,7 @@ const swaggerOptions = {
             contact: {
                 name: "Jack Petersen"
             },
-            servers: ["http://localhost:3001/", "54.86.252.92"]
+            servers: ["http://localhost:3001/", "https://www.thehoopscoop.org/"]
         }
     },
     apis: ["server.js", "./routes/boxPlayersRoutes.js", "./routes/boxRoutes.js", "./routes/boxScoreMiscRoutes.js",
