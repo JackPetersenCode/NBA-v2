@@ -49,7 +49,7 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 //app.use(cors());
 app.use(
-    '/api-docs',
+    '/api/api-docs',
     swaggerUi.serve, 
     swaggerUi.setup(swaggerDocs)
 );
