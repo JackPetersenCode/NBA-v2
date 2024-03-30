@@ -35,7 +35,7 @@ const swaggerOptions = {
             servers: ["http://localhost:3001/", "https://www.thehoopscoop.org/"]
         }
     },
-    apis: ["server.js", "./routes/boxPlayersRoutes.js", "./routes/boxRoutes.js", "./routes/boxScoreMiscRoutes.js",
+    apis: ["nba/server.js", "nba/routes/boxPlayersRoutes.js", "./routes/boxRoutes.js", "./routes/boxScoreMiscRoutes.js",
             "./routes/boxScoreScoringRoutes.js", "./routes/boxScoresTraditionalRoutes.js",
             "./routes/boxScoreSummaryRoutes.js", "./routes/carmeloRoutes.js", "./routes/fourFactorsRoutes.js",
             "./routes/gamblingRoutes.js", "./routes/hustleStatsRoutes.js", "./routes/leagueDashLineupsRoutes.js",
