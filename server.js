@@ -25,52 +25,42 @@ const { errorLogger, errorResponder, invalidPathHandler } = require(`./middlewar
 
 const swaggerOptions = {
     swaggerDefinition: {
-        openapi: '3.0.0',
+        openapi: "3.0.0",
         info: {
             title: 'The Hoop Scoop API',
             description: "NBA Statistics API",
             contact: {
                 name: "Jack Petersen"
             },
-            servers: ["http://localhost:3001/", "https://www.thehoopscoop.org/", "http://www.thehoopscoop.org/"]
+            servers: [
+                {
+                  url: "http://localhost:3001",
+                },
+                {
+                    url: "https://www.thehoopscoop.org", // Production domain URL
+                },
+              ],        
         }
     },
-    apis: ["/home/ubuntu/nba-app/server.js", "/home/ubuntu/nba-app/routes/boxPlayersRoutes.js", "/nba-app/routes/boxRoutes.js", "./routes/boxScoreMiscRoutes.js",
-            "./routes/boxScoreScoringRoutes.js", "./routes/boxScoresTraditionalRoutes.js",
-            "./routes/boxScoreSummaryRoutes.js", "./routes/carmeloRoutes.js", "./routes/fourFactorsRoutes.js",
-            "./routes/gamblingRoutes.js", "./routes/hustleStatsRoutes.js", "./routes/leagueDashLineupsRoutes.js",
-            "./routes/leagueDashOppShotRoutes.js","./routes/leagueDashPlayerClutchRoutes.js",
-            "./routes/leagueDashPlayerPtShotRoutes.js", "./routes/leagueGamesRoutes.js", "./routes/mvpPointsRoutes.js",
-            "./routes/playersNBARoutes.js", "./routes/playerTrackerRoutes.js", "./routes/publicApiPlayersRoutes.js",
-            "./routes/publicGamesRoutes.js", "./routes/regularSeasonStatsRoutes.js", "./routes/shotsRoutes.js", "./models/user.js",
-            "./routes/userRouter.js", "./routes/statRankedRouter.js"]
+    apis: ["./routes/boxPlayersRoutes.js"]
 }
+
+//apis: ["server.js", "./routes/boxPlayersRoutes.js", "./routes/boxRoutes.js", "./routes/boxScoreMiscRoutes.js",
+//"./routes/boxScoreScoringRoutes.js", "./routes/boxScoresTraditionalRoutes.js",
+//"./routes/boxScoreSummaryRoutes.js", "./routes/carmeloRoutes.js", "./routes/fourFactorsRoutes.js",
+//"./routes/gamblingRoutes.js", "./routes/hustleStatsRoutes.js", "./routes/leagueDashLineupsRoutes.js",
+//"./routes/leagueDashOppShotRoutes.js","./routes/leagueDashPlayerClutchRoutes.js",
+//"./routes/leagueDashPlayerPtShotRoutes.js", "./routes/leagueGamesRoutes.js", "./routes/mvpPointsRoutes.js",
+//"./routes/playersNBARoutes.js", "./routes/playerTrackerRoutes.js", "./routes/publicApiPlayersRoutes.js",
+//"./routes/publicGamesRoutes.js", "./routes/regularSeasonStatsRoutes.js", "./routes/shotsRoutes.js", "./models/user.js",
+//"./routes/userRouter.js", "./routes/statRankedRouter.js"]
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use(
     '/api-docs',
     swaggerUi.serve, 
-    swaggerUi.setup(swaggerDocs)
+    swaggerUi.setup(swaggerDocs, {explorer: true})
 );
-
-/**
- * @swagger
- * /test:
- *   get:
- *     summary: Test route for Swagger documentation
- *     description: Returns a test message to verify Swagger integration
- *     responses:
- *       200:
- *         description: A JSON object containing a test message
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: This is a test route for Swagger!
- */
 
 app.use(flash());
 
